@@ -5,6 +5,7 @@ import {angleRenderSystem} from '../../ecs/systems/angle-render-system';
 import {angleSystem} from '../../ecs/systems/angle-system';
 import {cameraProjectionSystem} from '../../ecs/systems/camera-projection-system';
 import {movementThroughKeyboardSystem} from '../../ecs/systems/movement-through-keyboard-input';
+import {positionInterpolationSystem} from '../../ecs/systems/position-interpolation-system';
 import {positionRenderSystem} from '../../ecs/systems/position-render-system';
 import {positionSystem} from '../../ecs/systems/position-system';
 import {visualSystem} from '../../ecs/systems/visual-system';
@@ -30,6 +31,7 @@ export class Sandbox {
       angleSystem(),
       movementThroughKeyboardSystem(this.keyboard),
       positionSystem(),
+      positionInterpolationSystem(),
       positionRenderSystem(),
       angleRenderSystem(),
       cameraProjectionSystem(this.camera)
