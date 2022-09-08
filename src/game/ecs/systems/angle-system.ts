@@ -1,11 +1,12 @@
 import {defineQuery, defineSystem} from 'bitecs';
+import {World} from '../../types';
 import {Angle} from '../components/angle';
 import {AngularVelocity} from '../components/angular-velocity';
 
 export function angleSystem() {
   const entityQuery = defineQuery([Angle, AngularVelocity]);
 
-  return defineSystem(world => {
+  return defineSystem((world: World) => {
     const entities = entityQuery(world);
 
     for (let i = 0; i < entities.length; ++i) {

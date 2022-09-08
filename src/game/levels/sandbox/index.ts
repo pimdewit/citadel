@@ -1,6 +1,5 @@
 import {pipe} from 'bitecs';
-import {drawObjectList} from 'twgl.js';
-import {visualMeshes} from '../../ecs/shared-entities';
+import {CameraPerspective} from '../../ecs/components/camera-perspective';
 import {angleRenderSystem} from '../../ecs/systems/angle-render-system';
 import {angleSystem} from '../../ecs/systems/angle-system';
 import {cameraProjectionSystem} from '../../ecs/systems/camera-projection-system';
@@ -47,6 +46,13 @@ export class Sandbox {
       renderSystem(gl)
     );
   }
+
+  readonly resize = () => {
+    // Resize all cameras.
+    for (const id of this.data.world.cameras.keys()) {
+      CameraPerspective.aspect[id] = window.innerWidth / window.innerHeight;
+    }
+  };
 
   update() {
     this.renderPipeline(this.data.world);

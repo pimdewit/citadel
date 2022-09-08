@@ -1,32 +1,34 @@
 import {defineQuery, defineSystem} from 'bitecs';
 import {m4} from 'twgl.js';
+import {World} from '../../types';
 import {Camera} from '../components/camera';
 import {CameraActive} from '../components/camera-active';
 import {Position} from '../components/position';
 import {VisualBox} from '../components/visual-box';
-import {cameras, visualMeshes} from '../shared-entities';
 
 export function cameraWorldCoordinatesSystem() {
   const entityQuery = defineQuery([Position, VisualBox]);
   const cameraQuery = defineQuery([Camera, CameraActive]);
 
-  return defineSystem(world => {
+  return defineSystem((world: World) => {
     const entities = entityQuery(world);
     const [cameraId] = cameraQuery(world);
 
     for (let i = 0; i < entities.length; ++i) {
       const id = entities[i];
-      const mesh = visualMeshes.get(id);
+      const mesh = world.meshes.get(id);
       if (!mesh) continue;
 
-      const world = mesh.uniforms.u_world;
       m4.transpose(
-        m4.inverse(world, mesh.uniforms.u_worldInverseTranspose),
+        m4.inverse(
+          mesh.uniforms.u_world,
+          mesh.uniforms.u_worldInverseTranspose
+        ),
         mesh.uniforms.u_worldInverseTranspose
       );
 
-      const camera = cameras.get(cameraId);
-      if (!camera) continue;
+      const camera = world.cameras.get(cameraId);
+      if (!camera) throw new Error('no camera found');
       m4.multiply(
         camera.viewProjection,
         mesh.uniforms.u_world,
