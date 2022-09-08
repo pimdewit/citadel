@@ -4,49 +4,43 @@ import {Key} from '../../lib/input/keyboard/key';
 import {KeyValues} from '../../lib/input/keyboard/keys';
 import {ControlsMovement} from '../components/controls-movement';
 import {InputKeyboard} from '../components/input-keyboard';
-import {Transform} from '../components/transform';
-import {TransformVelocity} from '../components/transform-velocity';
-
-const min = 0;
-const max = 0.15;
+import {Position} from '../components/position';
+import {Velocity} from '../components/velocity';
 
 function handleKeyboard(key: Key, entityId: number) {
   if (key) {
     switch (key.value) {
       case KeyValues.ArrowUp:
       case KeyValues.W:
-        TransformVelocity.positionX[entityId] = min;
-        TransformVelocity.positionZ[entityId] = -max;
+        Velocity.x[entityId] = 0;
+        Velocity.z[entityId] = -Velocity.max[entityId];
         break;
       case KeyValues.ArrowLeft:
       case KeyValues.A:
-        TransformVelocity.positionX[entityId] = -max;
-        TransformVelocity.positionZ[entityId] = min;
+        Velocity.x[entityId] = -Velocity.max[entityId];
+        Velocity.z[entityId] = 0;
         break;
       case KeyValues.ArrowDown:
       case KeyValues.S:
-        TransformVelocity.positionX[entityId] = min;
-        TransformVelocity.positionZ[entityId] = max;
+        Velocity.x[entityId] = 0;
+        Velocity.z[entityId] = Velocity.max[entityId];
         break;
       case KeyValues.ArrowRight:
       case KeyValues.D:
-        TransformVelocity.positionX[entityId] = max;
-        TransformVelocity.positionZ[entityId] = min;
+        Velocity.x[entityId] = Velocity.max[entityId];
+        Velocity.z[entityId] = 0;
         break;
     }
   } else {
-    TransformVelocity.positionX[entityId] = min;
-    TransformVelocity.positionZ[entityId] = min;
+    Velocity.x[entityId] = 0;
+    Velocity.z[entityId] = 0;
   }
 }
 
-/**
- * Apply transform velocities to the transform.
- */
 export function movementThroughKeyboardSystem(keyboard: Keyboard) {
   const entityQuery = defineQuery([
-    Transform,
-    TransformVelocity,
+    Position,
+    Velocity,
     InputKeyboard,
     ControlsMovement,
   ]);

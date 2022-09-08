@@ -5,7 +5,7 @@ import {phongUniforms} from '../../_resources/programs/phong';
 import {texture, TextureIdentifier} from '../../_resources/textures';
 import {Camera} from '../../lib/camera';
 import {Mesh} from '../../lib/gl/mesh';
-import {Transform} from '../components/transform';
+import {Position} from '../components/position';
 import {VisualBox} from '../components/visual-box';
 import {visualMeshes} from '../shared-entities';
 
@@ -15,7 +15,7 @@ import {visualMeshes} from '../shared-entities';
  * @param camera
  */
 function visualSystem(gl: WebGLRenderingContext, camera: Camera) {
-  const entityQuery = defineQuery([Transform, VisualBox]);
+  const entityQuery = defineQuery([Position, VisualBox]);
   const entityQueryEnter = enterQuery(entityQuery);
   const entityQueryExit = exitQuery(entityQuery);
 

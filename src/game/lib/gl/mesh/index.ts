@@ -12,13 +12,4 @@ export class Mesh<T = {[key: string]: any}> {
     readonly bufferInfo: BufferInfo,
     readonly uniforms: T
   ) {}
-
-  /** Applies the current transform. */
-  applyTransform(world: m4.Mat4) {
-    m4.translate(world, this.position, world);
-    m4.rotateX(world, this.rotation[0], world);
-    m4.rotateY(world, this.rotation[1], world);
-    m4.rotateZ(world, this.rotation[2], world);
-    m4.scale(world, this.scale, world);
-  }
 }
