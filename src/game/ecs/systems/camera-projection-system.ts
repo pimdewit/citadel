@@ -2,11 +2,11 @@ import {defineQuery, defineSystem} from 'bitecs';
 import {m4} from 'twgl.js';
 import {vector3} from '../../lib/math/vector3';
 import {setVector3} from '../../lib/math/vector3/set-vector3';
+import {World} from '../../types';
 import {Camera} from '../components/camera';
 import {CameraActive} from '../components/camera-active';
 import {CameraPerspective} from '../components/camera-perspective';
 import {Position} from '../components/position';
-import {cameras} from '../shared-entities';
 
 const up = vector3(0, 1, 0);
 
@@ -18,13 +18,13 @@ export function cameraProjectionSystem() {
     Position,
   ]);
 
-  return defineSystem(world => {
+  return defineSystem((world: World) => {
     const entities = entityQuery(world);
 
     for (let i = 0; i < entities.length; ++i) {
       const id = entities[i];
-      const camera = cameras.get(id);
-      if (!camera) continue;
+      const camera = world.cameras.get(id);
+      if (!camera) throw new Error('no camera found');
 
       const projection = m4.perspective(
         CameraPerspective.fov[id],

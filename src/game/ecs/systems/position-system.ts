@@ -1,4 +1,5 @@
 import {defineQuery, defineSystem, Not} from 'bitecs';
+import {World} from '../../types';
 import {Position} from '../components/position';
 import {PositionInterpolated} from '../components/position-interpolated';
 import {Velocity} from '../components/velocity';
@@ -10,7 +11,7 @@ export function positionSystem() {
     Not(PositionInterpolated),
   ]);
 
-  return defineSystem(world => {
+  return defineSystem((world: World) => {
     const entities = entityQuery(world);
 
     for (let i = 0; i < entities.length; ++i) {

@@ -1,5 +1,6 @@
 import {defineQuery, defineSystem} from 'bitecs';
 import {interpolate} from '../../lib/math/interpolate';
+import {World} from '../../types';
 import {Position} from '../components/position';
 import {PositionInterpolated} from '../components/position-interpolated';
 import {Velocity} from '../components/velocity';
@@ -7,7 +8,7 @@ import {Velocity} from '../components/velocity';
 export function positionInterpolationSystem() {
   const entityQuery = defineQuery([Position, PositionInterpolated, Velocity]);
 
-  return defineSystem(world => {
+  return defineSystem((world: World) => {
     const entities = entityQuery(world);
 
     for (let i = 0; i < entities.length; ++i) {

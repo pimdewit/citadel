@@ -13,12 +13,16 @@ export class Game {
       failIfMajorPerformanceCaveat: true,
     })!;
 
-    resize(this.gl);
     setup(this.gl);
     createResources(this.gl);
 
     this.level = new Sandbox(this.gl);
   }
+
+  readonly resize = () => {
+    resize(this.gl);
+    this.level.resize();
+  };
 
   render = () => {
     this.level.update();
