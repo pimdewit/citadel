@@ -4,11 +4,16 @@ import {program, ProgramIdentifier} from '../../_resources/programs';
 import {phongUniforms} from '../../_resources/programs/phong';
 import {texture, TextureIdentifier} from '../../_resources/textures';
 import {Camera} from '../../lib/camera';
-import {Mesh} from '../../lib/mesh';
+import {Mesh} from '../../lib/gl/mesh';
 import {Transform} from '../components/transform';
 import {VisualBox} from '../components/visual-box';
 import {visualMeshes} from '../shared-entities';
 
+/**
+ * Manage visual representations of the entities.
+ * @param gl
+ * @param camera
+ */
 function visualSystem(gl: WebGLRenderingContext, camera: Camera) {
   const entityQuery = defineQuery([Transform, VisualBox]);
   const entityQueryEnter = enterQuery(entityQuery);

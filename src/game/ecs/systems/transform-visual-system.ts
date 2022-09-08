@@ -1,11 +1,15 @@
 import {defineQuery, defineSystem} from 'bitecs';
 import {m4} from 'twgl.js';
 import {Camera} from '../../lib/camera';
-import {setVector3} from '../../lib/vector3/set-vector3';
+import {setVector3} from '../../lib/math/vector3/set-vector3';
 import {Transform} from '../components/transform';
 import {VisualBox} from '../components/visual-box';
 import {visualMeshes} from '../shared-entities';
 
+/**
+ * Apply transformations to the meshes.
+ * @param camera
+ */
 export function transformVisualSystem(camera: Camera) {
   const entityQuery = defineQuery([VisualBox, Transform]);
 
