@@ -1,5 +1,5 @@
 import {createApp} from 'vue';
 import './styles/critical.scss';
-import App from './ui/app.vue';
+import EntryPoint from './ui/EntryPoint.vue';
 
-createApp(App).mount('#app');
+createApp(EntryPoint).mount('#app');
