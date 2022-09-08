@@ -1,9 +1,12 @@
 import {pipe} from 'bitecs';
 import {drawObjectList} from 'twgl.js';
 import {visualMeshes} from '../../ecs/shared-entities';
+import {angleRenderSystem} from '../../ecs/systems/angle-render-system';
+import {angleSystem} from '../../ecs/systems/angle-system';
+import {cameraProjectionSystem} from '../../ecs/systems/camera-projection-system';
 import {movementThroughKeyboardSystem} from '../../ecs/systems/movement-through-keyboard-input';
-import {transformSystem} from '../../ecs/systems/transform-system';
-import {transformVisualSystem} from '../../ecs/systems/transform-visual-system';
+import {positionRenderSystem} from '../../ecs/systems/position-render-system';
+import {positionSystem} from '../../ecs/systems/position-system';
 import {visualSystem} from '../../ecs/systems/visual-system';
 import {Camera} from '../../lib/camera';
 import {Keyboard} from '../../lib/input/keyboard';
@@ -24,9 +27,12 @@ export class Sandbox {
 
     this.renderPipeline = pipe(
       visualSystem(gl, this.camera),
-      transformSystem(),
+      angleSystem(),
       movementThroughKeyboardSystem(this.keyboard),
-      transformVisualSystem(this.camera)
+      positionSystem(),
+      positionRenderSystem(),
+      angleRenderSystem(),
+      cameraProjectionSystem(this.camera)
     );
   }
 
