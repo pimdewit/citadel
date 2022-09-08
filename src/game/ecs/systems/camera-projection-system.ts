@@ -1,35 +1,47 @@
 import {defineQuery, defineSystem} from 'bitecs';
 import {m4} from 'twgl.js';
-import {Camera} from '../../lib/camera';
+import {vector3} from '../../lib/math/vector3';
+import {setVector3} from '../../lib/math/vector3/set-vector3';
+import {Camera} from '../components/camera';
+import {CameraActive} from '../components/camera-active';
+import {CameraPerspective} from '../components/camera-perspective';
 import {Position} from '../components/position';
-import {VisualBox} from '../components/visual-box';
-import {visualMeshes} from '../shared-entities';
+import {cameras} from '../shared-entities';
 
-/**
- * Apply transformations to the meshes.
- * @param camera
- */
-export function cameraProjectionSystem(camera: Camera) {
-  const entityQuery = defineQuery([Position, VisualBox]);
+const up = vector3(0, 1, 0);
+
+export function cameraProjectionSystem() {
+  const entityQuery = defineQuery([
+    Camera,
+    CameraActive,
+    CameraPerspective,
+    Position,
+  ]);
 
   return defineSystem(world => {
     const entities = entityQuery(world);
 
     for (let i = 0; i < entities.length; ++i) {
       const id = entities[i];
-      const mesh = visualMeshes.get(id);
-      if (!mesh) continue;
+      const camera = cameras.get(id);
+      if (!camera) continue;
 
-      const world = mesh.uniforms.u_world;
-      m4.transpose(
-        m4.inverse(world, mesh.uniforms.u_worldInverseTranspose),
-        mesh.uniforms.u_worldInverseTranspose
+      const projection = m4.perspective(
+        CameraPerspective.fov[id],
+        CameraPerspective.aspect[id],
+        CameraPerspective.near[id],
+        CameraPerspective.far[id]
       );
-      m4.multiply(
-        camera.viewProjection,
-        mesh.uniforms.u_world,
-        mesh.uniforms.u_worldViewProjection
+
+      setVector3(
+        camera.position,
+        Position.x[id],
+        Position.y[id],
+        Position.z[id]
       );
+      m4.lookAt(camera.position, camera.target, up, camera.id);
+      m4.inverse(camera.id, camera.view);
+      m4.multiply(projection, camera.view, camera.viewProjection);
     }
 
     return world;
