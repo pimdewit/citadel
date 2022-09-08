@@ -1,4 +1,4 @@
-import {interpolate as lerp} from '../math/interpolate';
+import {interpolate as lerp} from '../interpolate';
 import {Vector3} from './typings';
 
 /**

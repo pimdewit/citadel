@@ -102,7 +102,7 @@ export function phongUniforms(
     u_world: m4.identity(),
     u_worldInverseTranspose: m4.identity(),
     u_worldViewProjection: m4.identity(),
-    u_lightWorldPos: [1, 10, -100],
+    u_lightWorldPos: [10, 10, 100],
     u_lightColor: [1, 1, 1, 1],
     u_ambient: [0, 0, 0, 1],
     u_specular: [1, 1, 1, 1],

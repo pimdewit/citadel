@@ -1,5 +1,5 @@
 import {BufferInfo, m4, ProgramInfo} from 'twgl.js';
-import {vector3} from '../vector3';
+import {vector3} from '../../math/vector3';
 
 export class Mesh<T = {[key: string]: any}> {
   readonly id = m4.identity();

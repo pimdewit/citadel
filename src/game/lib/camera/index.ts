@@ -1,5 +1,5 @@
 import {m4} from 'twgl.js';
-import {vector3} from '../vector3';
+import {vector3} from '../math/vector3';
 
 const up = vector3(0, 1, 0);
 
