@@ -3,24 +3,26 @@ import {primitives} from 'twgl.js';
 import {program, ProgramIdentifier} from '../../_resources/programs';
 import {phongUniforms} from '../../_resources/programs/phong';
 import {texture, TextureIdentifier} from '../../_resources/textures';
-import {Camera} from '../../lib/camera';
 import {Mesh} from '../../lib/gl/mesh';
+import {Camera} from '../components/camera';
+import {CameraActive} from '../components/camera-active';
 import {Position} from '../components/position';
 import {VisualBox} from '../components/visual-box';
-import {visualMeshes} from '../shared-entities';
+import {cameras, visualMeshes} from '../shared-entities';
 
-/**
- * Manage visual representations of the entities.
- * @param gl
- * @param camera
- */
-function visualSystem(gl: WebGLRenderingContext, camera: Camera) {
+function visualSystem(gl: WebGLRenderingContext) {
   const entityQuery = defineQuery([Position, VisualBox]);
   const entityQueryEnter = enterQuery(entityQuery);
   const entityQueryExit = exitQuery(entityQuery);
+  const cameraQuery = defineQuery([Camera, CameraActive]);
 
   return defineSystem((world: IWorld) => {
     const entitiesEntered = entityQueryEnter(world);
+    const [cameraId] = cameraQuery(world);
+
+    const camera = cameras.get(cameraId);
+    if (!camera) throw new Error('no camera found');
+
     for (let i = 0; i < entitiesEntered.length; ++i) {
       const id = entitiesEntered[i];
 
