@@ -35,8 +35,7 @@ const fragmentShaderSource = `
   void main() {
     
     vec4 diffuse = texture(u_diffuse, v_texCoord);
-    
-    if (diffuse.r <= 0.2) discard;
+//    if (diffuse.r <= 0.2) discard;
     
     FragColor += diffuse;
   }
@@ -48,19 +47,14 @@ export function unlit(gl: WebGLRenderingContext) {
 
 export interface UnlitUniforms {
   u_diffuse: WebGLTexture;
-  u_viewInverse: m4.Mat4;
   u_world: m4.Mat4;
   u_worldInverseTranspose: m4.Mat4;
   u_worldViewProjection: m4.Mat4;
 }
 
-export function unlitUniforms(
-  diffuse: WebGLTexture,
-  camera: m4.Mat4
-): UnlitUniforms {
+export function unlitUniforms(diffuse: WebGLTexture): UnlitUniforms {
   return {
     u_diffuse: diffuse,
-    u_viewInverse: camera,
     u_world: m4.identity(),
     u_worldInverseTranspose: m4.identity(),
     u_worldViewProjection: m4.identity(),

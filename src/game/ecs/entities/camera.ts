@@ -11,7 +11,7 @@ export function camera(world: IWorld) {
   addComponent(world, Camera, entity);
   addComponent(world, CameraActive, entity);
   addComponent(world, CameraPerspective, entity);
-  CameraPerspective.fov[entity] = 0.5235987755982988;
+  CameraPerspective.fov[entity] = 0.8;
   CameraPerspective.aspect[entity] = 2;
   CameraPerspective.near[entity] = 0.5;
   CameraPerspective.far[entity] = 100;
