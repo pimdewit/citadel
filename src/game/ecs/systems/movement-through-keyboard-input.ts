@@ -1,5 +1,4 @@
 import {defineQuery, defineSystem} from 'bitecs';
-import {Keyboard} from '../../lib/input/keyboard';
 import {Key} from '../../lib/input/keyboard/key';
 import {KeyValues} from '../../lib/input/keyboard/keys';
 import {World} from '../../types';
@@ -38,7 +37,7 @@ function handleKeyboard(key: Key, entityId: number) {
   }
 }
 
-export function movementThroughKeyboardSystem(keyboard: Keyboard) {
+export function movementThroughKeyboardSystem() {
   const entityQuery = defineQuery([
     Position,
     Velocity,
@@ -47,7 +46,7 @@ export function movementThroughKeyboardSystem(keyboard: Keyboard) {
   ]);
 
   return defineSystem((world: World) => {
-    const key = keyboard.lastKeyPressed;
+    const key = world.keyboard.lastKeyPressed;
     const entities = entityQuery(world);
     // const spaceBarDown =
     // keyboard.allKeysPressed.includes(commonKeys[CommonKeys.SpaceKey]);

@@ -10,11 +10,12 @@ const game = ref<Game>();
 const canvas = ref<HTMLCanvasElement>();
 
 onMounted(() => {
-  game.value = new Game(canvas.value!);
-  game.value.render();
+  const gameInstance = new Game(canvas.value!);
+  gameInstance.render();
 
-  window.addEventListener('resize', game.value.resize);
-  game.value.resize();
+  window.addEventListener('resize', gameInstance.resize);
+  gameInstance.resize();
+  game.value = gameInstance;
 });
 
 onUnmounted(() => {

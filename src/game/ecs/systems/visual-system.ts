@@ -10,7 +10,7 @@ import {CameraActive} from '../components/camera-active';
 import {Position} from '../components/position';
 import {VisualBox} from '../components/visual-box';
 
-function visualSystem(gl: WebGLRenderingContext) {
+function visualSystem() {
   const entityQuery = defineQuery([Position, VisualBox]);
   const entityQueryEnter = enterQuery(entityQuery);
   const entityQueryExit = exitQuery(entityQuery);
@@ -26,7 +26,7 @@ function visualSystem(gl: WebGLRenderingContext) {
     for (let i = 0; i < entitiesEntered.length; ++i) {
       const id = entitiesEntered[i];
 
-      const bufferInfo = primitives.createCubeBufferInfo(gl, 2);
+      const bufferInfo = primitives.createCubeBufferInfo(world.gl, 2);
       const programInfo = program(ProgramIdentifier.PHONG);
       const uniforms = phongUniforms(
         texture(TextureIdentifier.DEBUG),
