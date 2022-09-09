@@ -1,60 +1,27 @@
-import {pipe} from 'bitecs';
 import {CameraPerspective} from '../../ecs/components/camera-perspective';
-import {angleRenderSystem} from '../../ecs/systems/angle-render-system';
-import {angleSystem} from '../../ecs/systems/angle-system';
-import {cameraProjectionSystem} from '../../ecs/systems/camera-projection-system';
-import {cameraWorldCoordinatesSystem} from '../../ecs/systems/camera-world-coordinates-system';
-import {glCameraSystem} from '../../ecs/systems/gl-camera-system';
-import {movementThroughKeyboardSystem} from '../../ecs/systems/movement-through-keyboard-input';
-import {positionInterpolationSystem} from '../../ecs/systems/position-interpolation-system';
-import {positionRenderSystem} from '../../ecs/systems/position-render-system';
-import {positionSystem} from '../../ecs/systems/position-system';
-import {renderSystem} from '../../ecs/systems/render-system';
-import {visualSystem} from '../../ecs/systems/visual-system';
-import {Camera} from '../../lib/camera';
-import {Keyboard} from '../../lib/input/keyboard';
-import {commonKeys} from '../../lib/input/keyboard/common-keys';
-import {RenderPipeline} from '../../types';
-import {Data} from './data';
+import {resize} from '../../lib/gl/resize';
+import {RenderPipeline, World} from '../../types';
+import {createWorld} from './create-world';
+import {renderPipeline} from './render-pipeline';
 
 export class Sandbox {
-  readonly camera = new Camera();
-  readonly data = new Data();
+  readonly world: World;
   readonly renderPipeline: RenderPipeline;
-  readonly keyboard = new Keyboard();
 
   constructor(readonly gl: WebGLRenderingContext) {
-    this.keyboard.addKeys(commonKeys);
-
-    this.renderPipeline = pipe(
-      // GL Setup.
-      glCameraSystem(),
-      visualSystem(gl),
-      // Transforms.
-      angleSystem(),
-      movementThroughKeyboardSystem(this.keyboard),
-      positionSystem(),
-      positionInterpolationSystem(),
-      // Cameras.
-      cameraProjectionSystem(),
-      // Meshes.
-      positionRenderSystem(),
-      angleRenderSystem(),
-      // Shaders.
-      cameraWorldCoordinatesSystem(),
-      // Rendering.
-      renderSystem(gl)
-    );
+    this.world = createWorld(gl);
+    this.renderPipeline = renderPipeline(this.world);
   }
 
   readonly resize = () => {
-    // Resize all cameras.
-    for (const id of this.data.world.cameras.keys()) {
-      CameraPerspective.aspect[id] = window.innerWidth / window.innerHeight;
+    const gl = this.world.gl;
+    resize(gl);
+    for (const id of this.world.cameras.keys()) {
+      CameraPerspective.aspect[id] = gl.canvas.width / gl.canvas.height;
     }
   };
 
   update() {
-    this.renderPipeline(this.data.world);
+    this.renderPipeline(this.world);
   }
 }
