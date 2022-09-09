@@ -21,13 +21,13 @@ export function player(world: IWorld) {
   Position.x[entity] = 20;
   addComponent(world, PositionInterpolationTarget, entity);
   PositionInterpolationTarget.y[entity] = 0.5;
-  PositionInterpolationTarget.alpha[entity] = 0.04;
+  PositionInterpolationTarget.alpha[entity] = 0.1;
   addComponent(world, Velocity, entity);
   Velocity.max[entity] = 0.15;
 
   addComponent(world, Angle, entity);
   addComponent(world, AngularVelocity, entity);
-  AngularVelocity.y[entity] = Math.random() * 0.003;
+  // AngularVelocity.y[entity] = Math.random() * 0.003;
 
   addComponent(world, ControlsMovement, entity);
   addComponent(world, InputKeyboard, entity);
