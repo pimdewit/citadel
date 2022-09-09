@@ -8,8 +8,8 @@
  */
 export function resize(
   gl: WebGLRenderingContext,
-  width = window.innerWidth,
-  height = window.innerHeight,
+  width = window.innerWidth * window.devicePixelRatio,
+  height = window.innerHeight * window.devicePixelRatio,
   affectGlViewport = true
 ) {
   gl.canvas.width = width;

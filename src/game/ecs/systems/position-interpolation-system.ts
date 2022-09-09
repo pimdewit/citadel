@@ -2,35 +2,39 @@ import {defineQuery, defineSystem} from 'bitecs';
 import {interpolate} from '../../lib/math/interpolate';
 import {World} from '../../types';
 import {Position} from '../components/position';
-import {PositionInterpolated} from '../components/position-interpolated';
+import {PositionInterpolationTarget} from '../components/position-interpolation-target';
 import {Velocity} from '../components/velocity';
 
 export function positionInterpolationSystem() {
-  const entityQuery = defineQuery([Position, PositionInterpolated, Velocity]);
+  const entityQuery = defineQuery([
+    Position,
+    PositionInterpolationTarget,
+    Velocity,
+  ]);
 
   return defineSystem((world: World) => {
     const entities = entityQuery(world);
 
     for (let i = 0; i < entities.length; ++i) {
       const id = entities[i];
-      PositionInterpolated.x[id] += Velocity.x[id];
-      PositionInterpolated.y[id] += Velocity.y[id];
-      PositionInterpolated.z[id] += Velocity.z[id];
+      PositionInterpolationTarget.x[id] += Velocity.x[id];
+      PositionInterpolationTarget.y[id] += Velocity.y[id];
+      PositionInterpolationTarget.z[id] += Velocity.z[id];
 
       Position.x[id] = interpolate(
-        PositionInterpolated.x[id],
+        PositionInterpolationTarget.x[id],
         Position.x[id],
-        PositionInterpolated.alpha[id]
+        PositionInterpolationTarget.alpha[id]
       );
       Position.y[id] = interpolate(
-        PositionInterpolated.y[id],
+        PositionInterpolationTarget.y[id],
         Position.y[id],
-        PositionInterpolated.alpha[id]
+        PositionInterpolationTarget.alpha[id]
       );
       Position.z[id] = interpolate(
-        PositionInterpolated.z[id],
+        PositionInterpolationTarget.z[id],
         Position.z[id],
-        PositionInterpolated.alpha[id]
+        PositionInterpolationTarget.alpha[id]
       );
     }
 

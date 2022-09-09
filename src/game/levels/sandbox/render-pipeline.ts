@@ -11,10 +11,12 @@ import {glScaleSystem} from '../../ecs/systems/gl/gl-scale-system';
 import {movementThroughKeyboardSystem} from '../../ecs/systems/movement-through-keyboard-input';
 import {positionInterpolationSystem} from '../../ecs/systems/position-interpolation-system';
 import {positionSystem} from '../../ecs/systems/position-system';
-import {World} from '../../types';
+import {visionMeshSystem} from '../../ecs/systems/vision-mesh-system';
 
-export function renderPipeline(world: World) {
+export function renderPipeline() {
   return pipe(
+    // Object preparation.
+    visionMeshSystem(),
     // GL Setup.
     glCameraSystem(),
     glMeshSystem(),

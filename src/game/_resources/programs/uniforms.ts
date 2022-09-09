@@ -12,9 +12,8 @@ export function uniformsFactory(world: World, identifier: ProgramIdentifier) {
     case ProgramIdentifier.DEBUG_GRID:
       return debugGridUniforms();
     case ProgramIdentifier.UNLIT:
-      return unlitUniforms(texture(TextureIdentifier.DEBUG));
+      return unlitUniforms();
     case ProgramIdentifier.PHONG:
-      console.log(world.cameras.values());
       return phongUniforms(texture(TextureIdentifier.DEBUG), camera.id);
     default:
       return debugGridUniforms();
