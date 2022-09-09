@@ -1,12 +1,12 @@
 import {defineQuery, defineSystem} from 'bitecs';
 import {m4} from 'twgl.js';
-import {setVector3} from '../../lib/math/vector3/set-vector3';
-import {World} from '../../types';
-import {Position} from '../components/position';
-import {VisualBox} from '../components/visual-box';
+import {setVector3} from '../../../lib/math/vector3/set-vector3';
+import {World} from '../../../types';
+import {Mesh} from '../../components/mesh';
+import {Position} from '../../components/position';
 
-export function positionRenderSystem() {
-  const entityQuery = defineQuery([VisualBox, Position]);
+export function glPositionSystem() {
+  const entityQuery = defineQuery([Mesh, Position]);
 
   return defineSystem((world: World) => {
     const entities = entityQuery(world);

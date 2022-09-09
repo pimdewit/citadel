@@ -1,8 +1,8 @@
 import {defineSystem} from 'bitecs';
 import {drawObjectList} from 'twgl.js';
-import {World} from '../../types';
+import {World} from '../../../types';
 
-export function renderSystem() {
+export function glRenderSystem() {
   return defineSystem((world: World) => {
     const gl = world.gl;
     gl.enable(gl.DEPTH_TEST);

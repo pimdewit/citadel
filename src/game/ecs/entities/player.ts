@@ -3,14 +3,14 @@ import {Angle} from '../components/angle';
 import {AngularVelocity} from '../components/angular-velocity';
 import {ControlsMovement} from '../components/controls-movement';
 import {InputKeyboard} from '../components/input-keyboard';
+import {Mesh} from '../components/mesh';
 import {Position} from '../components/position';
 import {PositionInterpolated} from '../components/position-interpolated';
 import {Velocity} from '../components/velocity';
-import {VisualBox} from '../components/visual-box';
 
 export function player(world: IWorld) {
   const entity = addEntity(world);
-  addComponent(world, VisualBox, entity);
+  addComponent(world, Mesh, entity);
 
   addComponent(world, Position, entity);
   Position.x[entity] = 20;

@@ -1,9 +1,9 @@
 import {defineQuery, defineSystem, enterQuery, exitQuery} from 'bitecs';
-import {Camera as CameraGl} from '../../lib/camera';
-import {World} from '../../types';
-import {Camera} from '../components/camera';
-import {CameraActive} from '../components/camera-active';
-import {Position} from '../components/position';
+import {Camera as CameraGl} from '../../../lib/camera';
+import {World} from '../../../types';
+import {Camera} from '../../components/camera';
+import {CameraActive} from '../../components/camera-active';
+import {Position} from '../../components/position';
 
 export function glCameraSystem() {
   const entityQuery = defineQuery([Position, Camera, CameraActive]);

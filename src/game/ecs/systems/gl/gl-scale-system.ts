@@ -1,12 +1,12 @@
 import {defineQuery, defineSystem} from 'bitecs';
 import {m4} from 'twgl.js';
-import {setVector3} from '../../lib/math/vector3/set-vector3';
-import {World} from '../../types';
-import {Scale} from '../components/scale';
-import {VisualBox} from '../components/visual-box';
+import {setVector3} from '../../../lib/math/vector3/set-vector3';
+import {World} from '../../../types';
+import {Mesh} from '../../components/mesh';
+import {Scale} from '../../components/scale';
 
 export function glScaleSystem() {
-  const entityQuery = defineQuery([VisualBox, Scale]);
+  const entityQuery = defineQuery([Mesh, Scale]);
 
   return defineSystem((world: World) => {
     const entities = entityQuery(world);

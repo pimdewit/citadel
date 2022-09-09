@@ -1,11 +1,11 @@
 import {defineQuery, defineSystem} from 'bitecs';
 import {m4} from 'twgl.js';
-import {World} from '../../types';
-import {Angle} from '../components/angle';
-import {VisualBox} from '../components/visual-box';
+import {World} from '../../../types';
+import {Angle} from '../../components/angle';
+import {Mesh} from '../../components/mesh';
 
-export function angleRenderSystem() {
-  const entityQuery = defineQuery([VisualBox, Angle]);
+export function glAngleSystem() {
+  const entityQuery = defineQuery([Mesh, Angle]);
 
   return defineSystem((world: World) => {
     const entities = entityQuery(world);

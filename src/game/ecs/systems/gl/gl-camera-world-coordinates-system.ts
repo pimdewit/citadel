@@ -1,13 +1,13 @@
 import {defineQuery, defineSystem} from 'bitecs';
 import {m4} from 'twgl.js';
-import {World} from '../../types';
-import {Camera} from '../components/camera';
-import {CameraActive} from '../components/camera-active';
-import {Position} from '../components/position';
-import {VisualBox} from '../components/visual-box';
+import {World} from '../../../types';
+import {Camera} from '../../components/camera';
+import {CameraActive} from '../../components/camera-active';
+import {Mesh} from '../../components/mesh';
+import {Position} from '../../components/position';
 
-export function cameraWorldCoordinatesSystem() {
-  const entityQuery = defineQuery([Position, VisualBox]);
+export function glCameraWorldCoordinatesSystem() {
+  const entityQuery = defineQuery([Position, Mesh]);
   const cameraQuery = defineQuery([Camera, CameraActive]);
 
   return defineSystem((world: World) => {

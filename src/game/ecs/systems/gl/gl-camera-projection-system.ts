@@ -1,16 +1,16 @@
 import {defineQuery, defineSystem} from 'bitecs';
 import {m4} from 'twgl.js';
-import {vector3} from '../../lib/math/vector3';
-import {setVector3} from '../../lib/math/vector3/set-vector3';
-import {World} from '../../types';
-import {Camera} from '../components/camera';
-import {CameraActive} from '../components/camera-active';
-import {CameraPerspective} from '../components/camera-perspective';
-import {Position} from '../components/position';
+import {vector3} from '../../../lib/math/vector3';
+import {setVector3} from '../../../lib/math/vector3/set-vector3';
+import {World} from '../../../types';
+import {Camera} from '../../components/camera';
+import {CameraActive} from '../../components/camera-active';
+import {CameraPerspective} from '../../components/camera-perspective';
+import {Position} from '../../components/position';
 
 const up = vector3(0, 1, 0);
 
-export function cameraProjectionSystem() {
+export function glCameraProjectionSystem() {
   const entityQuery = defineQuery([
     Camera,
     CameraActive,
