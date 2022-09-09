@@ -7,7 +7,6 @@ import {Key} from './key';
 
 export class Keyboard {
   readonly keys: Map<string, Key> = new Map();
-  private _lastNavigationalKeyPressed: Key | null = null;
 
   constructor() {
     this.addEventListeners();
@@ -17,10 +16,6 @@ export class Keyboard {
 
   get allKeysPressed() {
     return this._allKeysPressed;
-  }
-
-  get lastKeyPressed() {
-    return this._allKeysPressed[this._allKeysPressed.length - 1];
   }
 
   addKeys(keys: Key[]): void {
