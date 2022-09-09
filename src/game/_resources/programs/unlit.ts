@@ -1,6 +1,8 @@
-//language=GLSL
 import {createProgramInfo, m4} from 'twgl.js';
+import {vector3} from '../../lib/math/vector3';
+import {Vector3} from '../../lib/math/vector3/typings';
 
+//language=GLSL
 const vertexShaderSource = `
   #version 300 es
 
@@ -9,13 +11,11 @@ const vertexShaderSource = `
   uniform mat4 u_worldViewProjection;
 
   layout(location = 0) in vec4 a_position;
-  layout(location = 1) in vec2 a_texcoord;
 
   out vec4 v_position;
   out vec2 v_texCoord;
 
   void main() {
-    v_texCoord = a_texcoord;
     v_position = (u_worldViewProjection * a_position);
     gl_Position = v_position;
   }
@@ -27,17 +27,12 @@ const fragmentShaderSource = `
 
   precision mediump float;
 
-  uniform sampler2D u_diffuse;
+  uniform vec3 u_color;
 
-  in vec2 v_texCoord;
   out vec4 FragColor;
 
   void main() {
-    
-    vec4 diffuse = texture(u_diffuse, v_texCoord);
-//    if (diffuse.r <= 0.2) discard;
-    
-    FragColor += diffuse;
+    FragColor = vec4(u_color, 1.0);
   }
 `;
 
@@ -46,17 +41,17 @@ export function unlit(gl: WebGLRenderingContext) {
 }
 
 export interface UnlitUniforms {
-  u_diffuse: WebGLTexture;
   u_world: m4.Mat4;
   u_worldInverseTranspose: m4.Mat4;
   u_worldViewProjection: m4.Mat4;
+  u_color: Vector3;
 }
 
-export function unlitUniforms(diffuse: WebGLTexture): UnlitUniforms {
+export function unlitUniforms(): UnlitUniforms {
   return {
-    u_diffuse: diffuse,
     u_world: m4.identity(),
     u_worldInverseTranspose: m4.identity(),
     u_worldViewProjection: m4.identity(),
+    u_color: vector3(1, 0, 0),
   };
 }

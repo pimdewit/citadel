@@ -1,5 +1,6 @@
 import {BufferInfo} from 'twgl.js';
 import {box} from './box';
+import {disc} from './disc';
 import {plane} from './plane';
 
 const GEOMETRIES = new Map<number, BufferInfo>();
@@ -7,6 +8,7 @@ const GEOMETRIES = new Map<number, BufferInfo>();
 export enum GeometryIdentifier {
   PLANE,
   BOX,
+  DISC,
 }
 
 let hasTextures = false;
@@ -14,6 +16,7 @@ let hasTextures = false;
 export function populateGeometries(gl: WebGLRenderingContext) {
   GEOMETRIES.set(GeometryIdentifier.BOX, box(gl));
   GEOMETRIES.set(GeometryIdentifier.PLANE, plane(gl));
+  GEOMETRIES.set(GeometryIdentifier.DISC, disc(gl));
   hasTextures = true;
 }
 

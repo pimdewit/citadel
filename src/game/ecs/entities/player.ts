@@ -7,8 +7,9 @@ import {ControlsMovement} from '../components/controls-movement';
 import {InputKeyboard} from '../components/input-keyboard';
 import {Mesh} from '../components/mesh';
 import {Position} from '../components/position';
-import {PositionInterpolated} from '../components/position-interpolated';
+import {PositionInterpolationTarget} from '../components/position-interpolation-target';
 import {Velocity} from '../components/velocity';
+import {Vision} from '../components/vision';
 
 export function player(world: IWorld) {
   const entity = addEntity(world);
@@ -18,9 +19,9 @@ export function player(world: IWorld) {
 
   addComponent(world, Position, entity);
   Position.x[entity] = 20;
-  addComponent(world, PositionInterpolated, entity);
-  PositionInterpolated.y[entity] = 0.5;
-  PositionInterpolated.alpha[entity] = 0.04;
+  addComponent(world, PositionInterpolationTarget, entity);
+  PositionInterpolationTarget.y[entity] = 0.5;
+  PositionInterpolationTarget.alpha[entity] = 0.04;
   addComponent(world, Velocity, entity);
   Velocity.max[entity] = 0.15;
 
@@ -30,6 +31,9 @@ export function player(world: IWorld) {
 
   addComponent(world, ControlsMovement, entity);
   addComponent(world, InputKeyboard, entity);
+
+  addComponent(world, Vision, entity);
+  Vision.distance[entity] = 5;
 
   return entity;
 }

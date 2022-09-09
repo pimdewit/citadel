@@ -10,7 +10,7 @@ export class Sandbox {
 
   constructor(readonly gl: WebGLRenderingContext) {
     this.world = createWorld(gl);
-    this.renderPipeline = renderPipeline(this.world);
+    this.renderPipeline = renderPipeline();
   }
 
   readonly resize = () => {

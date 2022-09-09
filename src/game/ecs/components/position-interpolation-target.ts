@@ -1,6 +1,6 @@
 import {defineComponent, Types} from 'bitecs';
 
-export const PositionInterpolated = defineComponent({
+export const PositionInterpolationTarget = defineComponent({
   /** Target position X. */
   x: Types.f32,
   /** Target position Y. */
