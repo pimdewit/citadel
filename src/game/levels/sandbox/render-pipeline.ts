@@ -4,6 +4,7 @@ import {angleSystem} from '../../ecs/systems/angle-system';
 import {cameraProjectionSystem} from '../../ecs/systems/camera-projection-system';
 import {cameraWorldCoordinatesSystem} from '../../ecs/systems/camera-world-coordinates-system';
 import {glCameraSystem} from '../../ecs/systems/gl-camera-system';
+import {glScaleSystem} from '../../ecs/systems/gl-scale-system';
 import {movementThroughKeyboardSystem} from '../../ecs/systems/movement-through-keyboard-input';
 import {positionInterpolationSystem} from '../../ecs/systems/position-interpolation-system';
 import {positionRenderSystem} from '../../ecs/systems/position-render-system';
@@ -27,6 +28,7 @@ export function renderPipeline(world: World) {
     // Meshes.
     positionRenderSystem(),
     angleRenderSystem(),
+    glScaleSystem(),
     // Shaders.
     cameraWorldCoordinatesSystem(),
     // Rendering.
