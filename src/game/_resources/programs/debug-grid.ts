@@ -29,6 +29,8 @@ const fragmentShaderSource = `
 
   precision mediump float;
 
+  uniform vec3 u_color;
+  
   in vec2 v_texCoord;
   out vec4 FragColor;
 
@@ -38,14 +40,13 @@ const fragmentShaderSource = `
   }
 
   void main() {
-    vec2 grid_uv = v_texCoord.xy * 100.0;
-    float x = grid(grid_uv, 0.2);
+    vec2 grid_uv = v_texCoord.xy * 300.0;
+    float x = grid(grid_uv, 0.06018);
 
     float color = 1.0 - x;
     if (color <= 0.2) discard;
 
-    FragColor.rgb = vec3(color);
-    FragColor.a = 1.0;
+    FragColor = vec4(u_color, 1.0);
   }
 `;
 

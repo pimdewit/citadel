@@ -1,7 +1,7 @@
 import {defineQuery, defineSystem, enterQuery, exitQuery} from 'bitecs';
-import {geometry, GeometryIdentifier} from '../../../_resources/geometry';
-import {program, ProgramIdentifier} from '../../../_resources/programs';
-import {debugGridUniforms} from '../../../_resources/programs/debug-grid';
+import {geometry} from '../../../_resources/geometry';
+import {program} from '../../../_resources/programs';
+import {uniformsFactory} from '../../../_resources/programs/uniforms';
 import {Mesh as MeshGl} from '../../../lib/gl/mesh';
 import {World} from '../../../types';
 import {Camera} from '../../components/camera';
@@ -25,9 +25,9 @@ function glMeshSystem() {
     for (let i = 0; i < entitiesEntered.length; ++i) {
       const id = entitiesEntered[i];
 
-      const bufferInfo = geometry(GeometryIdentifier.BOX);
-      const programInfo = program(ProgramIdentifier.DEBUG_GRID);
-      const uniforms = debugGridUniforms();
+      const bufferInfo = geometry(Mesh.bufferInfo[id]);
+      const programInfo = program(Mesh.program[id]);
+      const uniforms = uniformsFactory(world, Mesh.program[id]);
       const mesh = new MeshGl(programInfo, bufferInfo, uniforms);
 
       world.meshes.set(id, mesh);

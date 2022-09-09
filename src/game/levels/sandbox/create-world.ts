@@ -1,5 +1,6 @@
 import {createWorld as createEcsWorld} from 'bitecs';
 import {camera} from '../../ecs/entities/camera';
+import {ground} from '../../ecs/entities/ground';
 import {player} from '../../ecs/entities/player';
 import {Keyboard} from '../../lib/input/keyboard';
 import {commonKeys} from '../../lib/input/keyboard/common-keys';
@@ -15,6 +16,7 @@ export function createWorld(gl: WebGLRenderingContext) {
 
   player(world);
   camera(world);
+  ground(world);
 
   return world;
 }

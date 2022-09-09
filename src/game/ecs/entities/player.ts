@@ -1,4 +1,6 @@
 import {addComponent, addEntity, IWorld} from 'bitecs';
+import {GeometryIdentifier} from '../../_resources/geometry';
+import {ProgramIdentifier} from '../../_resources/programs';
 import {Angle} from '../components/angle';
 import {AngularVelocity} from '../components/angular-velocity';
 import {ControlsMovement} from '../components/controls-movement';
@@ -11,17 +13,19 @@ import {Velocity} from '../components/velocity';
 export function player(world: IWorld) {
   const entity = addEntity(world);
   addComponent(world, Mesh, entity);
+  Mesh.bufferInfo[entity] = GeometryIdentifier.BOX;
+  Mesh.program[entity] = ProgramIdentifier.PHONG;
 
   addComponent(world, Position, entity);
   Position.x[entity] = 20;
   addComponent(world, PositionInterpolated, entity);
+  PositionInterpolated.y[entity] = 0.5;
   PositionInterpolated.alpha[entity] = 0.04;
   addComponent(world, Velocity, entity);
   Velocity.max[entity] = 0.15;
 
   addComponent(world, Angle, entity);
   addComponent(world, AngularVelocity, entity);
-  AngularVelocity.x[entity] = Math.random() * 0.003;
   AngularVelocity.y[entity] = Math.random() * 0.003;
 
   addComponent(world, ControlsMovement, entity);
