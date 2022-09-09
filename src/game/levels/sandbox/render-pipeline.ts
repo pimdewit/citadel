@@ -9,14 +9,14 @@ import {positionInterpolationSystem} from '../../ecs/systems/position-interpolat
 import {positionRenderSystem} from '../../ecs/systems/position-render-system';
 import {positionSystem} from '../../ecs/systems/position-system';
 import {renderSystem} from '../../ecs/systems/render-system';
-import {visualSystem} from '../../ecs/systems/visual-system';
+import {glMeshSystem} from '../../ecs/systems/gl-mesh-system';
 import {World} from '../../types';
 
 export function renderPipeline(world: World) {
   return pipe(
     // GL Setup.
     glCameraSystem(),
-    visualSystem(),
+    glMeshSystem(),
     // Transforms.
     angleSystem(),
     movementThroughKeyboardSystem(),
