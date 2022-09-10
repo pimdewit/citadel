@@ -1,8 +1,8 @@
 import {defineQuery, defineSystem, enterQuery, exitQuery} from 'bitecs';
 import {Camera as CameraGl} from '../../../lib/camera';
 import {World} from '../../../types';
-import {Camera} from '../../components/camera';
-import {CameraActive} from '../../components/camera-active';
+import {Camera} from '../../components/camera/camera';
+import {CameraActive} from '../../components/camera/camera-active';
 import {Position} from '../../components/position';
 
 export function glCameraSystem() {

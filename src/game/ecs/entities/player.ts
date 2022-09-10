@@ -27,7 +27,6 @@ export function player(world: IWorld) {
 
   addComponent(world, Angle, entity);
   addComponent(world, AngularVelocity, entity);
-  // AngularVelocity.y[entity] = Math.random() * 0.003;
 
   addComponent(world, ControlsMovement, entity);
   addComponent(world, InputKeyboard, entity);

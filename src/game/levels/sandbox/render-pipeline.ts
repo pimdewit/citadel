@@ -1,8 +1,10 @@
 import {pipe} from 'bitecs';
 import {angleSystem} from '../../ecs/systems/angle-system';
 import {glAngleSystem} from '../../ecs/systems/gl/gl-angle-system';
+import {glCameraPositionSystem} from '../../ecs/systems/gl/gl-camera-position-system';
 import {glCameraProjectionSystem} from '../../ecs/systems/gl/gl-camera-projection-system';
 import {glCameraSystem} from '../../ecs/systems/gl/gl-camera-system';
+import {glCameraUpdateSystem} from '../../ecs/systems/gl/gl-camera-update-system';
 import {glCameraWorldCoordinatesSystem} from '../../ecs/systems/gl/gl-camera-world-coordinates-system';
 import {glMeshSystem} from '../../ecs/systems/gl/gl-mesh-system';
 import {glPositionSystem} from '../../ecs/systems/gl/gl-position-system';
@@ -26,7 +28,9 @@ export function renderPipeline() {
     positionSystem(),
     positionInterpolationSystem(),
     // Cameras.
+    glCameraPositionSystem(),
     glCameraProjectionSystem(),
+    glCameraUpdateSystem(),
     // Meshes.
     glPositionSystem(),
     glAngleSystem(),

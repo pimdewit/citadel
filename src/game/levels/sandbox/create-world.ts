@@ -4,19 +4,25 @@ import {ground} from '../../ecs/entities/ground';
 import {player} from '../../ecs/entities/player';
 import {Keyboard} from '../../lib/input/keyboard';
 import {commonKeys} from '../../lib/input/keyboard/common-keys';
+import {DragPointer} from '../../lib/input/pointer/drag-pointer';
 import {World} from '../../types';
 
 export function createWorld(gl: WebGLRenderingContext) {
   const world: World = createEcsWorld();
-  world.meshes = new Map();
-  world.cameras = new Map();
+  world.gl = gl;
   world.keyboard = new Keyboard();
   world.keyboard.addKeys(commonKeys);
-  world.gl = gl;
+  world.pointer = new DragPointer();
+  world.meshes = new Map();
+  world.cameras = new Map();
 
-  player(world);
   camera(world);
+  player(world);
   ground(world);
+
+  window.addEventListener('pointerdown', world.pointer.onPointerDown);
+  window.addEventListener('pointermove', world.pointer.onPointerMove);
+  window.addEventListener('pointerup', world.pointer.onPointerUp);
 
   return world;
 }
