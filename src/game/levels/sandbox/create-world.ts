@@ -1,5 +1,4 @@
 import {createWorld as createEcsWorld} from 'bitecs';
-import {CameraArcRotate} from '../../ecs/components/camera/camera-arc-rotate';
 import {camera} from '../../ecs/entities/camera';
 import {ground} from '../../ecs/entities/ground';
 import {player} from '../../ecs/entities/player';
@@ -17,23 +16,13 @@ export function createWorld(gl: WebGLRenderingContext) {
   world.meshes = new Map();
   world.cameras = new Map();
 
-  const c = camera(world);
+  camera(world);
   player(world);
   ground(world);
 
-  function onPointerMove(event: PointerEvent) {
-    const coords = world.pointer.onPointerMove(event);
-    if (!coords) return;
-
-    CameraArcRotate.angle[c] = 90 + coords[0] * 360;
-  }
-
-  const onPointerDown = world.pointer.onPointerDown;
-  const onPointerUp = world.pointer.onPointerUp;
-
-  window.addEventListener('pointerdown', onPointerDown);
-  window.addEventListener('pointermove', onPointerMove);
-  window.addEventListener('pointerup', onPointerUp);
+  window.addEventListener('pointerdown', world.pointer.onPointerDown);
+  window.addEventListener('pointermove', world.pointer.onPointerMove);
+  window.addEventListener('pointerup', world.pointer.onPointerUp);
 
   return world;
 }

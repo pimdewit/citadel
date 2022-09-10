@@ -45,6 +45,7 @@ export function glCameraProjectionSystem() {
 
       if (hasComponent(world, CameraArcRotate, id)) {
         const distance = distanceTo(camera.target, camera.position);
+        CameraArcRotate.angle[id] = 90 + world.pointer.position[0] * 360;
         const angle = degToRad(CameraArcRotate.angle[id]);
 
         setVector3(

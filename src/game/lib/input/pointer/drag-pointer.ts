@@ -7,6 +7,7 @@ export class DragPointer extends Pointer {
   readonly pointerDownPosition = vector2();
   readonly pointerDelta = vector2();
   readonly storedPosition = vector2();
+  readonly position = vector2();
   private pointerCaptureTarget: HTMLElement | null = null;
 
   readonly onPointerDown = (event: PointerEvent) => {
@@ -37,7 +38,7 @@ export class DragPointer extends Pointer {
   readonly onPointerMove = (event: PointerEvent) => {
     if (!this.pointerDown) return;
     this.storePointer(event);
-    return this.applyDrag(this.xy);
+    this.applyDrag(this.xy);
   };
 
   private applyDrag(vec2: Vector2) {
@@ -45,10 +46,8 @@ export class DragPointer extends Pointer {
     this.pointerDelta[0] += delta[0];
     this.pointerDelta[1] += delta[1];
 
-    return vector2(
-      this.pointerDelta[0] + this.storedPosition[0],
-      this.pointerDelta[1] + this.storedPosition[1]
-    );
+    this.position[0] = this.pointerDelta[0] + this.storedPosition[0];
+    this.position[1] = this.pointerDelta[1] + this.storedPosition[1];
   }
 
   /** Calculate how many pixels the pointer has moved since last frame. */
