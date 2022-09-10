@@ -1,14 +1,19 @@
 import {defineQuery, defineSystem} from 'bitecs';
 import {m4} from 'twgl.js';
+import {degToRad} from '../../../lib/math/deg-to-rad';
 import {vector3} from '../../../lib/math/vector3';
+import {distanceTo} from '../../../lib/math/vector3/distance-to';
 import {setVector3} from '../../../lib/math/vector3/set-vector3';
 import {World} from '../../../types';
-import {Camera} from '../../components/camera';
-import {CameraActive} from '../../components/camera-active';
-import {CameraPerspective} from '../../components/camera-perspective';
+import {Camera} from '../../components/camera/camera';
+import {CameraActive} from '../../components/camera/camera-active';
+import {CameraPerspective} from '../../components/camera/camera-perspective';
 import {Position} from '../../components/position';
 
 const up = vector3(0, 1, 0);
+
+/** @TODO: remove. */
+let d = 0;
 
 export function glCameraProjectionSystem() {
   const entityQuery = defineQuery([
@@ -39,6 +44,17 @@ export function glCameraProjectionSystem() {
         Position.y[id],
         Position.z[id]
       );
+      const distance = distanceTo(camera.target, camera.position);
+      d += 0.5;
+      const angle = degToRad(d);
+
+      setVector3(
+        camera.position,
+        camera.target[0] + Math.cos(angle) * distance,
+        Position.y[id],
+        camera.target[2] + Math.sin(angle) * distance
+      );
+
       m4.lookAt(camera.position, camera.target, up, camera.id);
       m4.inverse(camera.id, camera.view);
       m4.multiply(projection, camera.view, camera.viewProjection);

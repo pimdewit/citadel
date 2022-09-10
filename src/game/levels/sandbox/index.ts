@@ -1,4 +1,4 @@
-import {CameraPerspective} from '../../ecs/components/camera-perspective';
+import {CameraPerspective} from '../../ecs/components/camera/camera-perspective';
 import {resize} from '../../lib/gl/resize';
 import {RenderPipeline, World} from '../../types';
 import {createWorld} from './create-world';

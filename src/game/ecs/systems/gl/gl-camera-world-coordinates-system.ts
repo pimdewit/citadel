@@ -1,8 +1,8 @@
 import {defineQuery, defineSystem} from 'bitecs';
 import {m4} from 'twgl.js';
 import {World} from '../../../types';
-import {Camera} from '../../components/camera';
-import {CameraActive} from '../../components/camera-active';
+import {Camera} from '../../components/camera/camera';
+import {CameraActive} from '../../components/camera/camera-active';
 import {Mesh} from '../../components/mesh';
 import {Position} from '../../components/position';
 

@@ -4,8 +4,8 @@ import {program} from '../../../_resources/programs';
 import {uniformsFactory} from '../../../_resources/programs/uniforms';
 import {Mesh as MeshGl} from '../../../lib/gl/mesh';
 import {World} from '../../../types';
-import {Camera} from '../../components/camera';
-import {CameraActive} from '../../components/camera-active';
+import {Camera} from '../../components/camera/camera';
+import {CameraActive} from '../../components/camera/camera-active';
 import {Mesh} from '../../components/mesh';
 import {Position} from '../../components/position';
 
