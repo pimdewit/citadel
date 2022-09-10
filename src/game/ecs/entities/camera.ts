@@ -1,7 +1,7 @@
 import {addComponent, addEntity, IWorld} from 'bitecs';
+import {Angle} from '../components/angle';
 import {Camera} from '../components/camera/camera';
 import {CameraActive} from '../components/camera/camera-active';
-import {CameraArcRotate} from '../components/camera/camera-arc-rotate';
 import {CameraPerspective} from '../components/camera/camera-perspective';
 import {CameraTarget} from '../components/camera/camera-target';
 import {Position} from '../components/position';
@@ -13,14 +13,13 @@ export function camera(world: IWorld) {
   addComponent(world, Camera, entity);
   addComponent(world, CameraActive, entity);
   addComponent(world, CameraTarget, entity);
-  addComponent(world, CameraArcRotate, entity);
-  CameraArcRotate.angle[entity] = 90;
   addComponent(world, CameraPerspective, entity);
   CameraPerspective.fov[entity] = 0.8;
   CameraPerspective.aspect[entity] = 2;
   CameraPerspective.near[entity] = 0.5;
   CameraPerspective.far[entity] = 100;
 
+  addComponent(world, Angle, entity);
   addComponent(world, Position, entity);
   Position.x[entity] = 0;
   Position.y[entity] = 10;
