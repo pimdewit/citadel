@@ -1,6 +1,6 @@
 import {World} from '../../types';
 import {texture, TextureIdentifier} from '../textures';
-import {debugGridUniforms} from './debug-grid';
+import {debugGridUniforms} from './grid';
 import {ProgramIdentifier} from './index';
 import {phongUniforms} from './phong';
 import {unlitUniforms} from './unlit';

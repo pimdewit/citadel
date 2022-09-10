@@ -1,5 +1,5 @@
 import {ProgramInfo} from 'twgl.js';
-import {debugGrid} from './debug-grid';
+import {debugGrid} from './grid';
 import {unlit} from './unlit';
 import {phong} from './phong';
 
