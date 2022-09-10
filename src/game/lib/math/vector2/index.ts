@@ -1,4 +1,3 @@
-/** [x, y] vector representation. */
 import {setVector2} from './set-vector2';
 import {Vector2} from './typings';
 
