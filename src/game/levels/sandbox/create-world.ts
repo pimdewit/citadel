@@ -5,7 +5,7 @@ import {ground} from '../../ecs/entities/ground';
 import {player} from '../../ecs/entities/player';
 import {Keyboard} from '../../lib/input/keyboard';
 import {commonKeys} from '../../lib/input/keyboard/common-keys';
-import {Pointer} from '../../lib/input/pointer';
+import {DragPointer} from '../../lib/input/pointer/drag-pointer';
 import {World} from '../../types';
 
 export function createWorld(gl: WebGLRenderingContext) {
@@ -13,7 +13,7 @@ export function createWorld(gl: WebGLRenderingContext) {
   world.gl = gl;
   world.keyboard = new Keyboard();
   world.keyboard.addKeys(commonKeys);
-  world.pointer = new Pointer();
+  world.pointer = new DragPointer();
   world.meshes = new Map();
   world.cameras = new Map();
 
@@ -22,11 +22,18 @@ export function createWorld(gl: WebGLRenderingContext) {
   ground(world);
 
   function onPointerMove(event: PointerEvent) {
-    world.pointer.onPointerMove(event);
-    CameraArcRotate.angle[c] = 90 + world.pointer.x * 360;
+    const coords = world.pointer.onPointerMove(event);
+    if (!coords) return;
+
+    CameraArcRotate.angle[c] = 90 + coords[0] * 360;
   }
 
+  const onPointerDown = world.pointer.onPointerDown;
+  const onPointerUp = world.pointer.onPointerUp;
+
+  window.addEventListener('pointerdown', onPointerDown);
   window.addEventListener('pointermove', onPointerMove);
+  window.addEventListener('pointerup', onPointerUp);
 
   return world;
 }

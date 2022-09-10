@@ -16,6 +16,9 @@ export class Sandbox {
   readonly resize = () => {
     const gl = this.world.gl;
     resize(gl);
+
+    this.world.pointer.resize(gl.canvas.width, gl.canvas.height);
+
     for (const id of this.world.cameras.keys()) {
       CameraPerspective.aspect[id] = gl.canvas.width / gl.canvas.height;
     }
