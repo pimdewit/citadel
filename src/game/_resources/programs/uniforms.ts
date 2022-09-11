@@ -9,8 +9,6 @@ export function uniformsFactory(world: World, identifier: ProgramIdentifier) {
   const [camera] = world.cameras.values();
 
   switch (identifier) {
-    case ProgramIdentifier.DEBUG_GRID:
-      return debugGridUniforms();
     case ProgramIdentifier.UNLIT:
       return unlitUniforms();
     case ProgramIdentifier.PHONG:

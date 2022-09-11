@@ -28,7 +28,7 @@ export function visionMeshSystem() {
       const entity = entitiesEntered[i];
 
       const radiusEntity = visionRadius(world);
-      const distance = Vision.distance[entity];
+      const distance = Vision.radius[entity];
       setVector3Component(Scale, radiusEntity, distance, distance, distance);
       Vision.meshEntityId[entity] = radiusEntity;
     }

@@ -15,6 +15,7 @@ import {movementThroughKeyboardSystem} from '../../ecs/systems/movement-through-
 import {positionInterpolationSystem} from '../../ecs/systems/position-interpolation-system';
 import {positionSystem} from '../../ecs/systems/position-system';
 import {visionMeshSystem} from '../../ecs/systems/vision-mesh-system';
+import {visionSystem} from '../../ecs/systems/vision-system';
 
 export function renderPipeline() {
   return pipe(
@@ -32,6 +33,7 @@ export function renderPipeline() {
     positionInterpolationSystem(),
 
     // Battle.
+    visionSystem(),
     damageSystem(),
 
     // Cameras.

@@ -2,8 +2,8 @@ import {addComponent, addEntity, IWorld} from 'bitecs';
 import {GeometryIdentifier} from '../../_resources/geometry';
 import {ProgramIdentifier} from '../../_resources/programs';
 import {Attack} from '../components/attack';
-import {ControlsMovement} from '../components/controls-movement';
-import {InputKeyboard} from '../components/input-keyboard';
+import {ControlsMovement} from '../components/tag/controls-movement';
+import {InputKeyboard} from '../components/tag/input-keyboard';
 import {Mesh} from '../components/mesh';
 import {Position} from '../components/position';
 import {PositionInterpolationTarget} from '../components/position-interpolation-target';
@@ -28,10 +28,10 @@ export function player(world: IWorld) {
   addComponent(world, InputKeyboard, entity);
 
   addComponent(world, Attack, entity);
-  Attack.damage[entity] = 1;
+  Attack.damage[entity] = 5;
 
   addComponent(world, Vision, entity);
-  Vision.distance[entity] = 5;
+  Vision.radius[entity] = 3;
 
   return entity;
 }
