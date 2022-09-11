@@ -5,6 +5,7 @@ import {camera} from '../../ecs/entities/camera';
 import {enemy} from '../../ecs/entities/enemy';
 import {ground} from '../../ecs/entities/ground';
 import {player} from '../../ecs/entities/player';
+import {tower} from '../../ecs/entities/tower';
 import {Keyboard} from '../../lib/input/keyboard';
 import {commonKeys} from '../../lib/input/keyboard/common-keys';
 import {DragPointer} from '../../lib/input/pointer/drag-pointer';
@@ -23,9 +24,24 @@ export function createWorld(gl: WebGLRenderingContext) {
   player(world);
   ground(world);
 
-  const xPositions = window.crypto.getRandomValues(new Int8Array(10));
-  const zPositions = window.crypto.getRandomValues(new Int8Array(10));
+  const positions = [2, 4, 6, 8, 10];
 
+  for (let i = 0; i < positions.length; i++) {
+    const e = enemy(world);
+    Position.x[e] = positions[i];
+    PositionInterpolationTarget.alpha[e] = 0.01;
+  }
+
+  const towerPositionX = window.crypto.getRandomValues(new Int8Array(2));
+  const towerPositionY = window.crypto.getRandomValues(new Int8Array(2));
+  for (let i = 0; i < towerPositionX.length; i++) {
+    const e = tower(world);
+    Position.x[e] = towerPositionX[i] / 20;
+    Position.z[e] = towerPositionY[i] / 20;
+  }
+
+  const xPositions = window.crypto.getRandomValues(new Int8Array(128));
+  const zPositions = window.crypto.getRandomValues(new Int8Array(128));
   for (let i = 0; i < xPositions.length; i++) {
     const e = enemy(world);
     PositionInterpolationTarget.alpha[e] = 0.01;

@@ -1,4 +1,5 @@
 import {addComponent, addEntity, IWorld} from 'bitecs';
+import {setVector3Component} from '../../lib/math/vector3/set-vector3-component';
 import {Angle} from '../components/angle';
 import {Camera} from '../components/camera/camera';
 import {CameraActive} from '../components/camera/camera-active';
@@ -21,14 +22,12 @@ export function camera(world: IWorld) {
 
   addComponent(world, Angle, entity);
   addComponent(world, Position, entity);
-  Position.x[entity] = 0;
-  Position.y[entity] = 10;
-  Position.z[entity] = 20;
+  setVector3Component(Position, entity, 0, 50, 50);
   addComponent(world, PositionInterpolationTarget, entity);
-  PositionInterpolationTarget.x[entity] = 0;
+  PositionInterpolationTarget.x[entity] = 10;
   PositionInterpolationTarget.y[entity] = 10;
   PositionInterpolationTarget.z[entity] = 20;
-  PositionInterpolationTarget.alpha[entity] = 0.04;
+  PositionInterpolationTarget.alpha[entity] = 0.01;
   addComponent(world, Velocity, entity);
   Velocity.max[entity] = 0.15;
 

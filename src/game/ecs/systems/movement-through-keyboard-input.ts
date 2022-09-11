@@ -1,8 +1,8 @@
 import {defineQuery, defineSystem} from 'bitecs';
 import {getDirection} from '../../lib/input/keyboard/get-analog-direction';
 import {World} from '../../types';
-import {ControlsMovement} from '../components/controls-movement';
-import {InputKeyboard} from '../components/input-keyboard';
+import {ControlsMovement} from '../components/tag/controls-movement';
+import {InputKeyboard} from '../components/tag/input-keyboard';
 import {Position} from '../components/position';
 import {Velocity} from '../components/velocity';
 
