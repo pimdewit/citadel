@@ -18,15 +18,15 @@ export function glCameraProjectionSystem() {
     const entities = entityQuery(world);
 
     for (let i = 0; i < entities.length; ++i) {
-      const id = entities[i];
-      const camera = world.cameras.get(id);
+      const entity = entities[i];
+      const camera = world.cameras.get(entity);
       if (!camera) throw new Error('no camera found');
 
       camera.perspective = m4.perspective(
-        CameraPerspective.fov[id],
-        CameraPerspective.aspect[id],
-        CameraPerspective.near[id],
-        CameraPerspective.far[id]
+        CameraPerspective.fov[entity],
+        CameraPerspective.aspect[entity],
+        CameraPerspective.near[entity],
+        CameraPerspective.far[entity]
       );
     }
 

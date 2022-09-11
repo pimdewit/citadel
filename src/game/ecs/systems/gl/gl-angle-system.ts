@@ -11,14 +11,14 @@ export function glAngleSystem() {
     const entities = entityQuery(world);
 
     for (let i = 0; i < entities.length; ++i) {
-      const id = entities[i];
-      const mesh = world.meshes.get(id);
+      const entity = entities[i];
+      const mesh = world.meshes.get(entity);
       if (!mesh) continue;
 
       const m4World = mesh.uniforms.u_world;
-      m4.rotateX(m4World, Angle.x[id], m4World);
-      m4.rotateY(m4World, Angle.y[id], m4World);
-      m4.rotateZ(m4World, Angle.z[id], m4World);
+      m4.rotateX(m4World, Angle.x[entity], m4World);
+      m4.rotateY(m4World, Angle.y[entity], m4World);
+      m4.rotateZ(m4World, Angle.z[entity], m4World);
     }
 
     return world;

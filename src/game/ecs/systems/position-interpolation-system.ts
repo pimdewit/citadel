@@ -16,25 +16,25 @@ export function positionInterpolationSystem() {
     const entities = entityQuery(world);
 
     for (let i = 0; i < entities.length; ++i) {
-      const id = entities[i];
-      PositionInterpolationTarget.x[id] += Velocity.x[id];
-      PositionInterpolationTarget.y[id] += Velocity.y[id];
-      PositionInterpolationTarget.z[id] += Velocity.z[id];
+      const entity = entities[i];
+      PositionInterpolationTarget.x[entity] += Velocity.x[entity];
+      PositionInterpolationTarget.y[entity] += Velocity.y[entity];
+      PositionInterpolationTarget.z[entity] += Velocity.z[entity];
 
-      Position.x[id] = interpolate(
-        PositionInterpolationTarget.x[id],
-        Position.x[id],
-        PositionInterpolationTarget.alpha[id]
+      Position.x[entity] = interpolate(
+        PositionInterpolationTarget.x[entity],
+        Position.x[entity],
+        PositionInterpolationTarget.alpha[entity]
       );
-      Position.y[id] = interpolate(
-        PositionInterpolationTarget.y[id],
-        Position.y[id],
-        PositionInterpolationTarget.alpha[id]
+      Position.y[entity] = interpolate(
+        PositionInterpolationTarget.y[entity],
+        Position.y[entity],
+        PositionInterpolationTarget.alpha[entity]
       );
-      Position.z[id] = interpolate(
-        PositionInterpolationTarget.z[id],
-        Position.z[id],
-        PositionInterpolationTarget.alpha[id]
+      Position.z[entity] = interpolate(
+        PositionInterpolationTarget.z[entity],
+        Position.z[entity],
+        PositionInterpolationTarget.alpha[entity]
       );
     }
 

@@ -12,11 +12,11 @@ export function glScaleSystem() {
     const entities = entityQuery(world);
 
     for (let i = 0; i < entities.length; ++i) {
-      const id = entities[i];
-      const mesh = world.meshes.get(id);
+      const entity = entities[i];
+      const mesh = world.meshes.get(entity);
       if (!mesh) continue;
 
-      setVector3(mesh.scale, Scale.x[id], Scale.y[id], Scale.z[id]);
+      setVector3(mesh.scale, Scale.x[entity], Scale.y[entity], Scale.z[entity]);
       m4.scale(mesh.uniforms.u_world, mesh.scale, mesh.uniforms.u_world);
     }
 

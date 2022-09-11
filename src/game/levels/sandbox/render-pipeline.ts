@@ -1,5 +1,6 @@
 import {pipe} from 'bitecs';
 import {angleSystem} from '../../ecs/systems/angle-system';
+import {damageSystem} from '../../ecs/systems/damage-system';
 import {glAngleSystem} from '../../ecs/systems/gl/gl-angle-system';
 import {glCameraPositionSystem} from '../../ecs/systems/gl/gl-camera-position-system';
 import {glCameraProjectionSystem} from '../../ecs/systems/gl/gl-camera-projection-system';
@@ -19,24 +20,33 @@ export function renderPipeline() {
   return pipe(
     // Object preparation.
     visionMeshSystem(),
+
     // GL Setup.
     glCameraSystem(),
     glMeshSystem(),
+
     // Transforms.
     angleSystem(),
     movementThroughKeyboardSystem(),
     positionSystem(),
     positionInterpolationSystem(),
+
+    // Battle.
+    damageSystem(),
+
     // Cameras.
     glCameraPositionSystem(),
     glCameraProjectionSystem(),
     glCameraUpdateSystem(),
+
     // Meshes.
     glPositionSystem(),
     glAngleSystem(),
     glScaleSystem(),
+
     // Shaders.
     glCameraWorldCoordinatesSystem(),
+
     // Rendering.
     glRenderSystem()
   );

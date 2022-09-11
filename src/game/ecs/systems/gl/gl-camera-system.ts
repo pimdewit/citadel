@@ -13,15 +13,15 @@ export function glCameraSystem() {
   return defineSystem((world: World) => {
     const entitiesEntered = entityQueryEnter(world);
     for (let i = 0; i < entitiesEntered.length; ++i) {
-      const id = entitiesEntered[i];
+      const entity = entitiesEntered[i];
       const camera = new CameraGl();
-      world.cameras.set(id, camera);
+      world.cameras.set(entity, camera);
     }
 
     const entitiesExited = entityQueryExit(world);
     for (let i = 0; i < entitiesExited.length; ++i) {
-      const id = entitiesExited[i];
-      if (world.cameras.has(id)) world.cameras.delete(id);
+      const entity = entitiesExited[i];
+      if (world.cameras.has(entity)) world.cameras.delete(entity);
     }
 
     return world;

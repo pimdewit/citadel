@@ -10,8 +10,8 @@ export function glCameraUpdateSystem() {
     const entities = entityQuery(world);
 
     for (let i = 0; i < entities.length; ++i) {
-      const id = entities[i];
-      const camera = world.cameras.get(id);
+      const entity = entities[i];
+      const camera = world.cameras.get(entity);
       if (!camera) throw new Error('no camera found');
       camera.update();
     }

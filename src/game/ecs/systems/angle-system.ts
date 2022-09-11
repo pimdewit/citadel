@@ -10,10 +10,10 @@ export function angleSystem() {
     const entities = entityQuery(world);
 
     for (let i = 0; i < entities.length; ++i) {
-      const id = entities[i];
-      Angle.x[id] += AngularVelocity.x[id];
-      Angle.y[id] += AngularVelocity.y[id];
-      Angle.z[id] += AngularVelocity.z[id];
+      const entity = entities[i];
+      Angle.x[entity] += AngularVelocity.x[entity];
+      Angle.y[entity] += AngularVelocity.y[entity];
+      Angle.z[entity] += AngularVelocity.z[entity];
     }
 
     return world;

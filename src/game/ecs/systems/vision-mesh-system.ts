@@ -5,11 +5,12 @@ import {
   exitQuery,
   removeEntity,
 } from 'bitecs';
+import {copyComponent} from '../../lib/math/vector3/copy';
+import {setVector3Component} from '../../lib/math/vector3/set-vector3-component';
 import {World} from '../../types';
 import {Mesh} from '../components/mesh';
 import {Position} from '../components/position';
 import {Scale} from '../components/scale';
-import {Velocity} from '../components/velocity';
 import {Vision} from '../components/vision';
 import {visionRadius} from '../entities/vision-radius';
 
@@ -24,26 +25,23 @@ export function visionMeshSystem() {
     const entitiesExited = entityQueryExit(world);
 
     for (let i = 0; i < entitiesEntered.length; ++i) {
-      const id = entitiesEntered[i];
+      const entity = entitiesEntered[i];
 
       const radiusEntity = visionRadius(world);
-      Scale.x[radiusEntity] = Vision.distance[id];
-      Scale.y[radiusEntity] = Vision.distance[id];
-      Scale.z[radiusEntity] = Vision.distance[id];
-      Vision.meshEntityId[id] = radiusEntity;
+      const distance = Vision.distance[entity];
+      setVector3Component(Scale, radiusEntity, distance, distance, distance);
+      Vision.meshEntityId[entity] = radiusEntity;
     }
 
     for (let i = 0; i < entities.length; ++i) {
-      const id = entities[i];
-      const radiusEntity = Vision.meshEntityId[id];
-      Position.x[radiusEntity] = Position.x[id];
-      Position.y[radiusEntity] = Position.y[id];
-      Position.z[radiusEntity] = Position.z[id];
+      const entity = entities[i];
+      const radiusEntity = Vision.meshEntityId[entity];
+      copyComponent(Position, radiusEntity, Position, entity);
     }
 
     for (let i = 0; i < entitiesExited.length; ++i) {
-      const id = entitiesExited[i];
-      removeEntity(world, Vision.meshEntityId[id]);
+      const entity = entitiesExited[i];
+      removeEntity(world, Vision.meshEntityId[entity]);
     }
 
     return world;
