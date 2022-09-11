@@ -25,23 +25,23 @@ export function visionMeshSystem() {
     const entitiesExited = entityQueryExit(world);
 
     for (let i = 0; i < entitiesEntered.length; ++i) {
-      const id = entitiesEntered[i];
+      const entity = entitiesEntered[i];
 
       const radiusEntity = visionRadius(world);
-      const distance = Vision.distance[id];
+      const distance = Vision.distance[entity];
       setVector3Component(Scale, radiusEntity, distance, distance, distance);
-      Vision.meshEntityId[id] = radiusEntity;
+      Vision.meshEntityId[entity] = radiusEntity;
     }
 
     for (let i = 0; i < entities.length; ++i) {
-      const id = entities[i];
-      const radiusEntity = Vision.meshEntityId[id];
-      copyComponent(Position, radiusEntity, Position, id);
+      const entity = entities[i];
+      const radiusEntity = Vision.meshEntityId[entity];
+      copyComponent(Position, radiusEntity, Position, entity);
     }
 
     for (let i = 0; i < entitiesExited.length; ++i) {
-      const id = entitiesExited[i];
-      removeEntity(world, Vision.meshEntityId[id]);
+      const entity = entitiesExited[i];
+      removeEntity(world, Vision.meshEntityId[entity]);
     }
 
     return world;

@@ -15,10 +15,10 @@ export function positionSystem() {
     const entities = entityQuery(world);
 
     for (let i = 0; i < entities.length; ++i) {
-      const id = entities[i];
-      Position.x[id] += Velocity.x[id];
-      Position.y[id] += Velocity.y[id];
-      Position.z[id] += Velocity.z[id];
+      const entity = entities[i];
+      Position.x[entity] += Velocity.x[entity];
+      Position.y[entity] += Velocity.y[entity];
+      Position.z[entity] += Velocity.z[entity];
     }
 
     return world;

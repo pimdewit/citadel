@@ -23,20 +23,20 @@ function glMeshSystem() {
     if (!camera) throw new Error('no camera found');
 
     for (let i = 0; i < entitiesEntered.length; ++i) {
-      const id = entitiesEntered[i];
+      const entity = entitiesEntered[i];
 
-      const bufferInfo = geometry(Mesh.bufferInfo[id]);
-      const programInfo = program(Mesh.program[id]);
-      const uniforms = uniformsFactory(world, Mesh.program[id]);
+      const bufferInfo = geometry(Mesh.bufferInfo[entity]);
+      const programInfo = program(Mesh.program[entity]);
+      const uniforms = uniformsFactory(world, Mesh.program[entity]);
       const mesh = new MeshGl(programInfo, bufferInfo, uniforms);
 
-      world.meshes.set(id, mesh);
+      world.meshes.set(entity, mesh);
     }
 
     const entitiesExited = entityQueryExit(world);
     for (let i = 0; i < entitiesExited.length; ++i) {
-      const id = entitiesExited[i];
-      if (world.meshes.has(id)) world.meshes.delete(id);
+      const entity = entitiesExited[i];
+      if (world.meshes.has(entity)) world.meshes.delete(entity);
     }
 
     return world;

@@ -19,8 +19,9 @@ export function movementThroughKeyboardSystem() {
     const {x, y} = getDirection(world.keyboard);
 
     for (let i = 0; i < entities.length; ++i) {
-      Velocity.x[entities[i]] = Velocity.max[entities[i]] * x;
-      Velocity.z[entities[i]] = Velocity.max[entities[i]] * y;
+      const entity = entities[i];
+      Velocity.x[entity] = Velocity.max[entity] * x;
+      Velocity.z[entity] = Velocity.max[entity] * y;
     }
 
     return world;

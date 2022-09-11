@@ -21,26 +21,26 @@ export function glCameraPositionSystem() {
     const entities = entityQuery(world);
 
     for (let i = 0; i < entities.length; ++i) {
-      const id = entities[i];
-      const camera = world.cameras.get(id);
+      const entity = entities[i];
+      const camera = world.cameras.get(entity);
       if (!camera) throw new Error('no camera found');
 
       setVector3(
         camera.position,
-        Position.x[id],
-        Position.y[id],
-        Position.z[id]
+        Position.x[entity],
+        Position.y[entity],
+        Position.z[entity]
       );
 
-      if (hasComponent(world, Angle, id)) {
+      if (hasComponent(world, Angle, entity)) {
         const distance = distanceTo(camera.target, camera.position);
-        Angle.x[id] = 90 + world.pointer.position[0] * 360;
-        const radiansX = degToRad(Angle.x[id]);
+        Angle.x[entity] = 90 + world.pointer.position[0] * 360;
+        const radiansX = degToRad(Angle.x[entity]);
 
         const x = camera.target[0] + Math.cos(radiansX) * distance;
         const z = camera.target[2] + Math.sin(radiansX) * distance;
 
-        setVector3(camera.position, x, Position.y[id], z);
+        setVector3(camera.position, x, Position.y[entity], z);
       }
     }
 

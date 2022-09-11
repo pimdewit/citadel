@@ -19,26 +19,26 @@ export function distanceTo(vectorA: Vector3, vectorB: Vector3): number {
 /**
  * Distance between two vector3's from ECS component data.
  * @param ComponentA
- * @param eidA
+ * @param entityA
  * @param ComponentB
- * @param eidB
+ * @param entityB
  *
  * @example
  * const distance = distanceToComponent(Position, player, Position, enemy);
  */
 export function distanceToComponent(
   ComponentA: Vector3Component,
-  eidA: number,
+  entityA: number,
   ComponentB: Vector3Component,
-  eidB: number
+  entityB: number
 ) {
   return distanceToExploded(
-    ComponentA.x[eidA],
-    ComponentA.y[eidA],
-    ComponentA.z[eidA],
-    ComponentB.x[eidB],
-    ComponentB.y[eidB],
-    ComponentB.z[eidB]
+    ComponentA.x[entityA],
+    ComponentA.y[entityA],
+    ComponentA.z[entityA],
+    ComponentB.x[entityB],
+    ComponentB.y[entityB],
+    ComponentB.z[entityB]
   );
 }
 

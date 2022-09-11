@@ -15,8 +15,8 @@ export function glCameraWorldCoordinatesSystem() {
     const [cameraId] = cameraQuery(world);
 
     for (let i = 0; i < entities.length; ++i) {
-      const id = entities[i];
-      const mesh = world.meshes.get(id);
+      const entity = entities[i];
+      const mesh = world.meshes.get(entity);
       if (!mesh) continue;
 
       m4.transpose(
