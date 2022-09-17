@@ -1,11 +1,11 @@
 import {defineQuery, defineSystem, enterQuery, exitQuery} from 'bitecs';
-import {Camera as CameraGl} from '../../../lib/camera';
+import {PerspectiveCamera} from 'three';
 import {World} from '../../../types';
 import {Camera} from '../../components/camera/camera';
 import {CameraActive} from '../../components/camera/camera-active';
 import {Position} from '../../components/position';
 
-export function glCameraSystem() {
+export function CameraSpawnSystem() {
   const entityQuery = defineQuery([Position, Camera, CameraActive]);
   const entityQueryEnter = enterQuery(entityQuery);
   const entityQueryExit = exitQuery(entityQuery);
@@ -14,7 +14,7 @@ export function glCameraSystem() {
     const entitiesEntered = entityQueryEnter(world);
     for (let i = 0; i < entitiesEntered.length; ++i) {
       const entity = entitiesEntered[i];
-      const camera = new CameraGl();
+      const camera = new PerspectiveCamera();
       world.cameras.set(entity, camera);
     }
 

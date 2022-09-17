@@ -1,12 +1,13 @@
 import {defineQuery, defineSystem} from 'bitecs';
-import {m4} from 'twgl.js';
+import {Vector3} from 'three';
 import {World} from '../../../types';
 import {Camera} from '../../components/camera/camera';
 import {CameraActive} from '../../components/camera/camera-active';
 import {CameraPerspective} from '../../components/camera/camera-perspective';
+import {CameraTarget} from '../../components/camera/camera-target';
 import {Position} from '../../components/position';
 
-export function glCameraProjectionSystem() {
+export function cameraPositionSystem() {
   const entityQuery = defineQuery([
     Camera,
     CameraActive,
@@ -22,12 +23,18 @@ export function glCameraProjectionSystem() {
       const camera = world.cameras.get(entity);
       if (!camera) throw new Error('no camera found');
 
-      camera.perspective = m4.perspective(
-        CameraPerspective.fov[entity],
-        CameraPerspective.aspect[entity],
-        CameraPerspective.near[entity],
-        CameraPerspective.far[entity]
+      camera.position.set(
+        Position.x[entity],
+        Position.y[entity],
+        Position.z[entity]
       );
+
+      const lookAt = new Vector3(
+        CameraTarget.x[entity],
+        CameraTarget.y[entity],
+        CameraTarget.z[entity]
+      );
+      camera.lookAt(lookAt);
     }
 
     return world;

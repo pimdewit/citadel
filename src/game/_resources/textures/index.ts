@@ -1,6 +1,7 @@
+import {Texture} from "three";
 import {debug} from './debug';
 
-const TEXTURES = new Map<number, WebGLTexture>();
+const TEXTURES = new Map<number, Texture>();
 
 export enum TextureIdentifier {
   DEBUG,
@@ -8,8 +9,8 @@ export enum TextureIdentifier {
 
 let hasTextures = false;
 
-export function populateTextures(gl: WebGLRenderingContext) {
-  TEXTURES.set(TextureIdentifier.DEBUG, debug(gl));
+export function populateTextures() {
+  TEXTURES.set(TextureIdentifier.DEBUG, debug());
   hasTextures = true;
 }
 

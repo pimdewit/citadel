@@ -1,11 +1,10 @@
 import {defineQuery, defineSystem} from 'bitecs';
-import {m4} from 'twgl.js';
 import {World} from '../../../types';
-import {Angle} from '../../components/angle';
 import {Mesh} from '../../components/mesh';
+import {Scale} from '../../components/scale';
 
-export function glAngleSystem() {
-  const entityQuery = defineQuery([Mesh, Angle]);
+export function meshScaleSystem() {
+  const entityQuery = defineQuery([Mesh, Scale]);
 
   return defineSystem((world: World) => {
     const entities = entityQuery(world);
@@ -15,10 +14,7 @@ export function glAngleSystem() {
       const mesh = world.meshes.get(entity);
       if (!mesh) continue;
 
-      const m4World = mesh.uniforms.u_world;
-      m4.rotateX(m4World, Angle.x[entity], m4World);
-      m4.rotateY(m4World, Angle.y[entity], m4World);
-      m4.rotateZ(m4World, Angle.z[entity], m4World);
+      mesh.scale.set(Scale.x[entity], Scale.y[entity], Scale.z[entity]);
     }
 
     return world;

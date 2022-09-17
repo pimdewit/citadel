@@ -1,15 +1,15 @@
 import {IWorld} from 'bitecs';
-import {Camera} from './lib/camera';
-import {Mesh} from './lib/gl/mesh';
+import {Mesh, PerspectiveCamera, Scene, WebGLRenderer} from "three";
 import {Keyboard} from './lib/input/keyboard';
 import {DragPointer} from './lib/input/pointer/drag-pointer';
 
 export type RenderPipeline = (...input: any[]) => any;
 
 export interface World extends IWorld {
+  renderer: WebGLRenderer;
+  scene: Scene;
   meshes: Map<number, Mesh>;
-  cameras: Map<number, Camera>;
+  cameras: Map<number, PerspectiveCamera>;
   keyboard: Keyboard;
-  gl: WebGLRenderingContext;
   pointer: DragPointer;
 }

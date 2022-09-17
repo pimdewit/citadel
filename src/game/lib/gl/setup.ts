@@ -5,7 +5,7 @@ import {populateTextures} from '../../_resources/textures';
 
 export function setup(gl: WebGLRenderingContext) {
   setDefaults({attribPrefix: 'a_'});
-  populateGeometries(gl);
-  populateTextures(gl);
-  populatePrograms(gl);
+  populateGeometries();
+  populateTextures();
+  populatePrograms();
 }

@@ -15,16 +15,16 @@ export function camera(world: IWorld) {
   addComponent(world, CameraActive, entity);
   addComponent(world, CameraTarget, entity);
   addComponent(world, CameraPerspective, entity);
-  CameraPerspective.fov[entity] = 0.8;
+  CameraPerspective.fov[entity] = 50;
   CameraPerspective.aspect[entity] = 2;
   CameraPerspective.near[entity] = 0.5;
   CameraPerspective.far[entity] = 100;
 
   addComponent(world, Angle, entity);
   addComponent(world, Position, entity);
-  setVector3Component(Position, entity, 0, 50, 50);
+  setVector3Component(Position, entity, 10, 50, 50);
   addComponent(world, PositionInterpolationTarget, entity);
-  PositionInterpolationTarget.x[entity] = 10;
+  PositionInterpolationTarget.x[entity] = 0;
   PositionInterpolationTarget.y[entity] = 10;
   PositionInterpolationTarget.z[entity] = 20;
   PositionInterpolationTarget.alpha[entity] = 0.01;

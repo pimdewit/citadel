@@ -1,11 +1,34 @@
-import {createTexture} from 'twgl.js';
+import {DataTexture, RepeatWrapping} from 'three';
 
-export function debug(gl: WebGLRenderingContext) {
-  return createTexture(gl, {
-    mag: gl.NEAREST,
-    min: gl.LINEAR,
-    format: gl.LUMINANCE,
-    src: new Uint8Array([255, 128, 255, 128, 255, 128, 255, 128]),
-    width: 1,
-  });
+export function debug() {
+  // prettier-ignore
+  const src = new Uint8Array([
+    255, 255, 255, 255,
+    0, 0, 0, 255,
+    0, 0, 0, 255,
+    0, 0, 0, 255,
+
+    0, 0, 0, 255,
+    0, 0, 0, 255,
+    0, 0, 0, 255,
+    0, 0, 0, 255,
+
+    0, 0, 0, 255,
+    0, 0, 0, 255,
+    0, 0, 0, 255,
+    0, 0, 0, 255,
+
+    0, 0, 0, 255,
+    0, 0, 0, 255,
+    0, 0, 0, 255,
+    0, 0, 0, 255,
+  ]);
+  const texture = new DataTexture(src, 8, 2);
+  texture.flipY = true;
+  texture.repeat.set(10, 10);
+  texture.wrapT = RepeatWrapping;
+  texture.wrapS = RepeatWrapping;
+  texture.needsUpdate = true;
+
+  return texture;
 }

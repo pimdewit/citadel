@@ -1,5 +1,7 @@
+import {addComponent} from 'bitecs';
+import {WebGLRenderer} from 'three';
+import {CameraNeedsUpdate} from '../../ecs/components/camera/camera-needs-update';
 import {CameraPerspective} from '../../ecs/components/camera/camera-perspective';
-import {resize} from '../../lib/gl/resize';
 import {RenderPipeline, World} from '../../types';
 import {createWorld} from './create-world';
 import {renderPipeline} from './render-pipeline';
@@ -8,19 +10,17 @@ export class Sandbox {
   readonly world: World;
   readonly renderPipeline: RenderPipeline;
 
-  constructor(readonly gl: WebGLRenderingContext) {
-    this.world = createWorld(gl);
+  constructor(renderer: WebGLRenderer) {
+    this.world = createWorld(renderer);
     this.renderPipeline = renderPipeline();
   }
 
-  readonly resize = () => {
-    const gl = this.world.gl;
-    resize(gl);
-
-    this.world.pointer.resize(gl.canvas.width, gl.canvas.height);
+  readonly resize = (width: number, height: number) => {
+    this.world.pointer.resize(width, height);
 
     for (const id of this.world.cameras.keys()) {
-      CameraPerspective.aspect[id] = gl.canvas.width / gl.canvas.height;
+      CameraPerspective.aspect[id] = width / height;
+      addComponent(this.world, CameraNeedsUpdate, id);
     }
   };
 

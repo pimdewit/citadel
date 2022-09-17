@@ -1,4 +1,5 @@
 import {createWorld as createEcsWorld} from 'bitecs';
+import {DirectionalLight, Scene, WebGLRenderer} from 'three';
 import {Position} from '../../ecs/components/position';
 import {PositionInterpolationTarget} from '../../ecs/components/position-interpolation-target';
 import {camera} from '../../ecs/entities/camera';
@@ -11,14 +12,20 @@ import {commonKeys} from '../../lib/input/keyboard/common-keys';
 import {DragPointer} from '../../lib/input/pointer/drag-pointer';
 import {World} from '../../types';
 
-export function createWorld(gl: WebGLRenderingContext) {
+export function createWorld(renderer: WebGLRenderer) {
   const world: World = createEcsWorld();
-  world.gl = gl;
+  world.renderer = renderer;
+  world.scene = new Scene();
+
   world.keyboard = new Keyboard();
   world.keyboard.addKeys(commonKeys);
   world.pointer = new DragPointer();
   world.meshes = new Map();
   world.cameras = new Map();
+
+  const a = new DirectionalLight();
+  a.position.set(-10, 100, 30);
+  world.scene.add(a);
 
   camera(world);
   player(world);

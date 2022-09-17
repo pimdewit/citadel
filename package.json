@@ -11,18 +11,20 @@
   "dependencies": {
     "bitecs": "^0.3.38",
     "open-props": "^1.4.14",
+    "three": "^0.144.0",
     "twgl.js": "^5.0.1",
     "vue": "^3.2.39"
   },
   "devDependencies": {
+    "@types/three": "^0.144.0",
     "@vitejs/plugin-vue": "^3.1.0",
     "gts": "^3.1.1",
     "prettier": "^2.7.1",
     "rollup-plugin-visualizer": "^5.8.1",
     "sass": "^1.54.9",
     "typescript": "^4.8.3",
-    "vite": "^3.1.0",
-    "vite-plugin-glsl": "^0.3.0",
+    "vite": "^3.1.2",
+    "vite-plugin-glsl": "^0.4.0",
     "vue-tsc": "^0.40.13"
   }
 }

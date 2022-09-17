@@ -36,6 +36,7 @@ export function visionMeshSystem() {
     for (let i = 0; i < entities.length; ++i) {
       const entity = entities[i];
       const radiusEntity = Vision.meshEntityId[entity];
+      // Copy the position of the entity that has vision, and apply it to the visual.
       copyComponent(Position, radiusEntity, Position, entity);
     }
 

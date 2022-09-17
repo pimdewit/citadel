@@ -1,6 +1,8 @@
 import {addComponent, addEntity, IWorld} from 'bitecs';
 import {GeometryIdentifier} from '../../_resources/geometry';
 import {ProgramIdentifier} from '../../_resources/programs';
+import {Angle} from '../components/angle';
+import {AngularVelocity} from '../components/angular-velocity';
 import {Attack} from '../components/attack';
 import {ControlsMovement} from '../components/tag/controls-movement';
 import {InputKeyboard} from '../components/tag/input-keyboard';
@@ -23,6 +25,10 @@ export function player(world: IWorld) {
   PositionInterpolationTarget.alpha[entity] = 0.1;
   addComponent(world, Velocity, entity);
   Velocity.max[entity] = 0.15;
+
+  addComponent(world, Angle, entity);
+  addComponent(world, AngularVelocity, entity);
+  AngularVelocity.y[entity] = 0.015;
 
   addComponent(world, ControlsMovement, entity);
   addComponent(world, InputKeyboard, entity);
