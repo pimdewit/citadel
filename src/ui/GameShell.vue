@@ -9,16 +9,23 @@ import {Game} from "../game";
 const game = ref<Game>();
 const canvas = ref<HTMLCanvasElement>();
 
+const resize = () => {
+  game.value?.world.resize(window.innerWidth, window.innerHeight, window.devicePixelRatio);
+}
+
 onMounted(() => {
   const gameInstance = new Game(canvas.value!);
-  gameInstance.render();
+  gameInstance.renderer.setAnimationLoop(gameInstance.render);
 
-  window.addEventListener('resize', gameInstance.resize);
-  gameInstance.resize();
+  window.addEventListener('resize', resize);
   game.value = gameInstance;
+  resize();
 });
 
 onUnmounted(() => {
-  if (game.value) window.removeEventListener('resize', game.value.resize);
+  if (game.value) {
+    game.value.renderer.setAnimationLoop(null);
+    window.removeEventListener('resize', resize);
+  }
 })
 </script>

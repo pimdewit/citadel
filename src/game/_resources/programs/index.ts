@@ -1,9 +1,9 @@
-import {ProgramInfo} from 'twgl.js';
-import {debugGrid} from './grid';
-import {unlit} from './unlit';
-import {phong} from './phong';
+import {Material} from "three";
+import {debugGrid} from "./debug-grid";
+import {phong} from "./phong";
+import {unlit} from "./unlit";
 
-const PROGRAMS = new Map<number, ProgramInfo>();
+const PROGRAMS = new Map<number, Material>();
 
 export enum ProgramIdentifier {
   DEBUG_GRID,
@@ -13,10 +13,10 @@ export enum ProgramIdentifier {
 
 let hasPrograms = false;
 
-export function populatePrograms(gl: WebGLRenderingContext) {
-  PROGRAMS.set(ProgramIdentifier.DEBUG_GRID, debugGrid(gl));
-  PROGRAMS.set(ProgramIdentifier.UNLIT, unlit(gl));
-  PROGRAMS.set(ProgramIdentifier.PHONG, phong(gl));
+export function populatePrograms() {
+  PROGRAMS.set(ProgramIdentifier.DEBUG_GRID, debugGrid());
+  PROGRAMS.set(ProgramIdentifier.UNLIT, unlit());
+  PROGRAMS.set(ProgramIdentifier.PHONG, phong());
   hasPrograms = true;
 }
 

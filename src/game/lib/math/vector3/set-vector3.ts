@@ -1,9 +1,15 @@
-import {Vector3} from './typings';
+import {Vector3Component} from './typings';
 
-export function setVector3(vector: Vector3, x: number, y: number, z: number) {
-  vector[0] = x;
-  vector[1] = y;
-  vector[2] = z;
+export function setVector3(
+  component: Vector3Component,
+  entity: number,
+  x: number,
+  y: number,
+  z: number
+) {
+  component.x[entity] = x;
+  component.y[entity] = y;
+  component.z[entity] = z;
 
-  return vector;
+  return component;
 }

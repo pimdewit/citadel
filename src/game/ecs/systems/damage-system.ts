@@ -1,5 +1,5 @@
 import {defineQuery, defineSystem, hasComponent, removeEntity} from 'bitecs';
-import {setVector3Component} from '../../lib/math/vector3/set-vector3-component';
+import {setVector3} from '../../lib/math/vector3/set-vector3';
 import {World} from '../../types';
 import {Attack} from '../components/attack';
 import {Health} from '../components/health';
@@ -34,7 +34,7 @@ function damageSystem() {
         if (hasComponent(world, Scale, enemy)) {
           const health = Health.current[enemy] / Health.total[enemy];
           const scale = Math.max(0, health);
-          setVector3Component(Scale, enemy, scale, scale, scale);
+          setVector3(Scale, enemy, scale, scale, scale);
         }
 
         if (Health.current[enemy] <= 0) {

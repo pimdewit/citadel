@@ -1,20 +1,4 @@
-import {Vector3, Vector3Component} from './typings';
-
-/**
- * Distance between two vector3's.
- * @param vectorA
- * @param vectorB
- */
-export function distanceTo(vectorA: Vector3, vectorB: Vector3): number {
-  return distanceToExploded(
-    vectorA[0],
-    vectorA[1],
-    vectorA[2],
-    vectorB[0],
-    vectorB[1],
-    vectorB[2]
-  );
-}
+import {Vector3Component} from './typings';
 
 /**
  * Distance between two vector3's from ECS component data.

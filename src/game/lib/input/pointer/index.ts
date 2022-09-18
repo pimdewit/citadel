@@ -1,12 +1,6 @@
-import {vector2} from '../../math/vector2';
-
 export class Pointer {
-  readonly xy = vector2();
+  readonly xy = new Float32Array(2);
   readonly viewportDimensions = new Int16Array(2);
-
-  constructor() {
-    this.resize();
-  }
 
   get x() {
     return this.xy[0];
@@ -21,10 +15,7 @@ export class Pointer {
     this.xy[1] = Math.round(event.y) / this.viewportDimensions[1] - 0.5;
   }
 
-  readonly resize = (
-    width = window.innerWidth,
-    height = window.innerHeight
-  ) => {
+  readonly resize = (width: number, height: number) => {
     this.viewportDimensions[0] = width;
     this.viewportDimensions[1] = height;
   };

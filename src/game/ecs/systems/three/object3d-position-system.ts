@@ -1,11 +1,9 @@
 import {defineQuery, defineSystem} from 'bitecs';
-import {m4} from 'twgl.js';
-import {setVector3} from '../../../lib/math/vector3/set-vector3';
 import {World} from '../../../types';
 import {Mesh} from '../../components/mesh';
 import {Position} from '../../components/position';
 
-export function glPositionSystem() {
+export function object3dPositionSystem() {
   const entityQuery = defineQuery([Mesh, Position]);
 
   return defineSystem((world: World) => {
@@ -16,14 +14,11 @@ export function glPositionSystem() {
       const mesh = world.meshes.get(entity);
       if (!mesh) continue;
 
-      m4.identity(mesh.uniforms.u_world);
-      setVector3(
-        mesh.position,
+      mesh.position.set(
         Position.x[entity],
         Position.y[entity],
         Position.z[entity]
       );
-      m4.translate(mesh.uniforms.u_world, mesh.position, mesh.uniforms.u_world);
     }
 
     return world;

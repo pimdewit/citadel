@@ -6,7 +6,7 @@ import {
   removeEntity,
 } from 'bitecs';
 import {copyComponent} from '../../lib/math/vector3/copy';
-import {setVector3Component} from '../../lib/math/vector3/set-vector3-component';
+import {setVector3} from '../../lib/math/vector3/set-vector3';
 import {World} from '../../types';
 import {Mesh} from '../components/mesh';
 import {Position} from '../components/position';
@@ -29,13 +29,14 @@ export function visionMeshSystem() {
 
       const radiusEntity = visionRadius(world);
       const distance = Vision.radius[entity];
-      setVector3Component(Scale, radiusEntity, distance, distance, distance);
+      setVector3(Scale, radiusEntity, distance, distance, distance);
       Vision.meshEntityId[entity] = radiusEntity;
     }
 
     for (let i = 0; i < entities.length; ++i) {
       const entity = entities[i];
       const radiusEntity = Vision.meshEntityId[entity];
+      // Copy the position of the entity that has vision, and apply it to the visual.
       copyComponent(Position, radiusEntity, Position, entity);
     }
 

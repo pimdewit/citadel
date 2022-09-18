@@ -1,5 +1,5 @@
 import {addComponent, addEntity, IWorld} from 'bitecs';
-import {setVector3Component} from '../../lib/math/vector3/set-vector3-component';
+import {setVector3} from '../../lib/math/vector3/set-vector3';
 import {Angle} from '../components/angle';
 import {Camera} from '../components/camera/camera';
 import {CameraActive} from '../components/camera/camera-active';
@@ -15,16 +15,16 @@ export function camera(world: IWorld) {
   addComponent(world, CameraActive, entity);
   addComponent(world, CameraTarget, entity);
   addComponent(world, CameraPerspective, entity);
-  CameraPerspective.fov[entity] = 0.8;
+  CameraPerspective.fov[entity] = 50;
   CameraPerspective.aspect[entity] = 2;
   CameraPerspective.near[entity] = 0.5;
-  CameraPerspective.far[entity] = 100;
+  CameraPerspective.far[entity] = 320;
 
   addComponent(world, Angle, entity);
   addComponent(world, Position, entity);
-  setVector3Component(Position, entity, 0, 50, 50);
+  setVector3(Position, entity, 10, 50, 50);
   addComponent(world, PositionInterpolationTarget, entity);
-  PositionInterpolationTarget.x[entity] = 10;
+  PositionInterpolationTarget.x[entity] = 0;
   PositionInterpolationTarget.y[entity] = 10;
   PositionInterpolationTarget.z[entity] = 20;
   PositionInterpolationTarget.alpha[entity] = 0.01;
