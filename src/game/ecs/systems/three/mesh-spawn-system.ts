@@ -1,10 +1,19 @@
-import {defineQuery, defineSystem, enterQuery, exitQuery} from 'bitecs';
+import {
+  defineQuery,
+  defineSystem,
+  enterQuery,
+  exitQuery,
+  hasComponent,
+} from 'bitecs';
 import {Mesh as ThreeMesh} from 'three';
 import {geometry} from '../../../_resources/geometry';
 import {program} from '../../../_resources/programs';
 import {World} from '../../../types';
+import {Angle} from '../../components/angle';
 import {Mesh} from '../../components/mesh';
 import {Position} from '../../components/position';
+import {Scale} from '../../components/scale';
+import {Static} from '../../components/tag/static';
 
 export function meshSpawnSystem() {
   const entityQuery = defineQuery([Position, Mesh]);
@@ -16,10 +25,33 @@ export function meshSpawnSystem() {
 
     for (let i = 0; i < entitiesEntered.length; ++i) {
       const entity = entitiesEntered[i];
-
-      const bufferInfo = geometry(Mesh.bufferInfo[entity]);
+      const bufferInfo = geometry(Mesh.geometry[entity]);
       const programInfo = program(Mesh.program[entity]);
       const mesh = new ThreeMesh(bufferInfo, programInfo);
+
+      if (hasComponent(world, Position, entity)) {
+        mesh.position.set(
+          Position.x[entity],
+          Position.y[entity],
+          Position.z[entity]
+        );
+      }
+
+      if (hasComponent(world, Angle, entity)) {
+        mesh.rotation.set(Angle.x[entity], Angle.y[entity], Angle.z[entity]);
+      }
+
+      if (hasComponent(world, Scale, entity)) {
+        mesh.scale.set(Scale.x[entity], Scale.y[entity], Scale.z[entity]);
+      }
+
+      const isStatic = hasComponent(world, Static, entity);
+      // If the mesh has the capability to move, mark the mesh as dynamic.
+      if (isStatic) {
+        mesh.matrixAutoUpdate = false;
+        mesh.updateMatrix();
+      }
+
       world.scene.add(mesh);
       world.meshes.set(entity, mesh);
     }

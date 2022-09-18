@@ -1,7 +1,7 @@
 import {addComponent, addEntity, IWorld} from 'bitecs';
 import {GeometryIdentifier} from '../../_resources/geometry';
 import {ProgramIdentifier} from '../../_resources/programs';
-import {setVector3Component} from '../../lib/math/vector3/set-vector3-component';
+import {setVector3} from '../../lib/math/vector3/set-vector3';
 import {Angle} from '../components/angle';
 import {AngularVelocity} from '../components/angular-velocity';
 import {Health} from '../components/health';
@@ -15,7 +15,7 @@ import {Velocity} from '../components/velocity';
 export function enemy(world: IWorld) {
   const entity = addEntity(world);
   addComponent(world, Mesh, entity);
-  Mesh.bufferInfo[entity] = GeometryIdentifier.SPHERE;
+  Mesh.geometry[entity] = GeometryIdentifier.SPHERE;
   Mesh.program[entity] = ProgramIdentifier.UNLIT;
 
   addComponent(world, Position, entity);
@@ -26,7 +26,7 @@ export function enemy(world: IWorld) {
   Velocity.max[entity] = 0.15;
 
   addComponent(world, Scale, entity);
-  setVector3Component(Scale, entity, 1, 1, 1);
+  setVector3(Scale, entity, 1, 1, 1);
 
   addComponent(world, Angle, entity);
   addComponent(world, AngularVelocity, entity);

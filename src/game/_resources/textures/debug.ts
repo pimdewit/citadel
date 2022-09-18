@@ -23,9 +23,9 @@ export function debug() {
     0, 0, 0, 255,
     0, 0, 0, 255,
   ]);
-  const texture = new DataTexture(src, 8, 2);
+  const texture = new DataTexture(src, 2, 2);
   texture.flipY = true;
-  texture.repeat.set(10, 10);
+  texture.repeat.set(16, 16);
   texture.wrapT = RepeatWrapping;
   texture.wrapS = RepeatWrapping;
   texture.needsUpdate = true;

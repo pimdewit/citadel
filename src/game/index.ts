@@ -1,30 +1,26 @@
 import {WebGLRenderer} from 'three';
 import {createResources} from './_resources';
-import {Sandbox} from './levels/sandbox';
+import {createWorld} from './ecs/create-world';
+import {renderPipeline} from './ecs/render-pipeline';
+import {RenderPipeline, World} from './types';
 
 export class Game {
   readonly renderer: WebGLRenderer;
-  private readonly level: Sandbox;
+  readonly world: World;
+  readonly renderPipeline: RenderPipeline;
 
   constructor(readonly canvas: HTMLCanvasElement) {
     this.renderer = new WebGLRenderer({canvas, antialias: false});
     createResources();
 
-    this.level = new Sandbox(this.renderer);
+    this.world = createWorld(this.renderer);
+    this.renderPipeline = renderPipeline();
+
+    // Render once for a direct visual and to transfer to gpu.
+    this.render();
   }
 
-  readonly resize = (
-    width = window.innerWidth,
-    height = window.innerHeight,
-    dpr = window.devicePixelRatio
-  ) => {
-    this.renderer.setSize(width, height);
-    this.renderer.setPixelRatio(dpr);
-    this.level.resize(width, height);
-  };
-
-  render = () => {
-    this.level.update();
-    window.requestAnimationFrame(this.render);
+  readonly render = () => {
+    this.renderPipeline(this.world);
   };
 }

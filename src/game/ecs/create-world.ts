@@ -1,27 +1,43 @@
-import {createWorld as createEcsWorld} from 'bitecs';
+import {addComponent, createWorld as createEcsWorld} from 'bitecs';
 import {DirectionalLight, Scene, WebGLRenderer} from 'three';
-import {Position} from '../../ecs/components/position';
-import {PositionInterpolationTarget} from '../../ecs/components/position-interpolation-target';
-import {camera} from '../../ecs/entities/camera';
-import {enemy} from '../../ecs/entities/enemy';
-import {ground} from '../../ecs/entities/ground';
-import {player} from '../../ecs/entities/player';
-import {tower} from '../../ecs/entities/tower';
-import {Keyboard} from '../../lib/input/keyboard';
-import {commonKeys} from '../../lib/input/keyboard/common-keys';
-import {DragPointer} from '../../lib/input/pointer/drag-pointer';
-import {World} from '../../types';
+import {resizeCamera} from '../lib/entity-hooks/resize-camera';
+import {CameraNeedsUpdate} from './components/camera/camera-needs-update';
+import {CameraPerspective} from './components/camera/camera-perspective';
+import {Position} from './components/position';
+import {PositionInterpolationTarget} from './components/position-interpolation-target';
+import {camera} from './entities/camera';
+import {enemy} from './entities/enemy';
+import {ground} from './entities/ground';
+import {player} from './entities/player';
+import {tower} from './entities/tower';
+import {Keyboard} from '../lib/input/keyboard';
+import {commonKeys} from '../lib/input/keyboard/common-keys';
+import {World} from '../types';
 
 export function createWorld(renderer: WebGLRenderer) {
   const world: World = createEcsWorld();
-  world.renderer = renderer;
-  world.scene = new Scene();
 
+  // Global data.
+  world.viewport = new Int16Array(2);
+
+  // Input.
   world.keyboard = new Keyboard();
   world.keyboard.addKeys(commonKeys);
-  world.pointer = new DragPointer();
+
+  // Graphics.
+  world.renderer = renderer;
+  world.scene = new Scene();
   world.meshes = new Map();
   world.cameras = new Map();
+
+  // Events.
+  world.resize = (width: number, height: number, dpr: number) => {
+    world.renderer.setSize(width, height);
+    world.renderer.setPixelRatio(dpr);
+    world.viewport[0] = Math.round(width);
+    world.viewport[1] = Math.round(height);
+    resizeCamera(world, width / height, true);
+  };
 
   const a = new DirectionalLight();
   a.position.set(-10, 100, 30);
@@ -57,10 +73,6 @@ export function createWorld(renderer: WebGLRenderer) {
     Position.x[e] = xPositions[i];
     Position.z[e] = zPositions[i];
   }
-
-  window.addEventListener('pointerdown', world.pointer.onPointerDown);
-  window.addEventListener('pointermove', world.pointer.onPointerMove);
-  window.addEventListener('pointerup', world.pointer.onPointerUp);
 
   return world;
 }

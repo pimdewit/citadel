@@ -3,7 +3,7 @@ import {World} from '../../../types';
 import {Mesh} from '../../components/mesh';
 import {Scale} from '../../components/scale';
 
-export function meshScaleSystem() {
+export function object3dScaleSystem() {
   const entityQuery = defineQuery([Mesh, Scale]);
 
   return defineSystem((world: World) => {

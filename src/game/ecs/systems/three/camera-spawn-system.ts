@@ -1,11 +1,12 @@
 import {defineQuery, defineSystem, enterQuery, exitQuery} from 'bitecs';
 import {PerspectiveCamera} from 'three';
+import {resizeCamera} from '../../../lib/entity-hooks/resize-camera';
 import {World} from '../../../types';
 import {Camera} from '../../components/camera/camera';
 import {CameraActive} from '../../components/camera/camera-active';
 import {Position} from '../../components/position';
 
-export function CameraSpawnSystem() {
+export function cameraSpawnSystem() {
   const entityQuery = defineQuery([Position, Camera, CameraActive]);
   const entityQueryEnter = enterQuery(entityQuery);
   const entityQueryExit = exitQuery(entityQuery);

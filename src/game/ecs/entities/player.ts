@@ -15,7 +15,7 @@ import {Vision} from '../components/vision';
 export function player(world: IWorld) {
   const entity = addEntity(world);
   addComponent(world, Mesh, entity);
-  Mesh.bufferInfo[entity] = GeometryIdentifier.BOX;
+  Mesh.geometry[entity] = GeometryIdentifier.BOX;
   Mesh.program[entity] = ProgramIdentifier.PHONG;
 
   addComponent(world, Position, entity);

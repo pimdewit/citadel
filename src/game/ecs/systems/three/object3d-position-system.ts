@@ -1,10 +1,10 @@
 import {defineQuery, defineSystem} from 'bitecs';
 import {World} from '../../../types';
-import {Angle} from '../../components/angle';
 import {Mesh} from '../../components/mesh';
+import {Position} from '../../components/position';
 
-export function meshAngleSystem() {
-  const entityQuery = defineQuery([Mesh, Angle]);
+export function object3dPositionSystem() {
+  const entityQuery = defineQuery([Mesh, Position]);
 
   return defineSystem((world: World) => {
     const entities = entityQuery(world);
@@ -14,7 +14,11 @@ export function meshAngleSystem() {
       const mesh = world.meshes.get(entity);
       if (!mesh) continue;
 
-      mesh.rotation.set(Angle.x[entity], Angle.y[entity], Angle.z[entity]);
+      mesh.position.set(
+        Position.x[entity],
+        Position.y[entity],
+        Position.z[entity]
+      );
     }
 
     return world;

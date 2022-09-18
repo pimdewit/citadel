@@ -1,12 +1,4 @@
-import {Vector3, Vector3Component} from './typings';
-
-export function copy(targetVector: Vector3, vectorToCopy: Vector3) {
-  targetVector[0] = vectorToCopy[0];
-  targetVector[1] = vectorToCopy[1];
-  targetVector[2] = vectorToCopy[2];
-
-  return targetVector;
-}
+import {Vector3Component} from './typings';
 
 export function copyComponent(
   targetComponent: Vector3Component,
