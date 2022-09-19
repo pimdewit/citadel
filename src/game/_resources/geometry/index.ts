@@ -1,14 +1,6 @@
-import {
-  BoxGeometry,
-  BufferGeometry,
-  PlaneGeometry,
-  RingGeometry,
-  SphereGeometry,
-} from 'three';
+import {BoxGeometry, BufferGeometry, SphereGeometry} from 'three';
 import {plane} from './plane';
 import {ring} from './ring';
-
-const GEOMETRIES = new Map<number, BufferGeometry>();
 
 export enum GeometryIdentifier {
   PLANE,
@@ -17,17 +9,12 @@ export enum GeometryIdentifier {
   SPHERE,
 }
 
-let hasGeometries = false;
+export function geometries() {
+  const geometryMap = new Map<number, BufferGeometry>();
+  geometryMap.set(GeometryIdentifier.BOX, new BoxGeometry());
+  geometryMap.set(GeometryIdentifier.PLANE, plane());
+  geometryMap.set(GeometryIdentifier.DISC, ring());
+  geometryMap.set(GeometryIdentifier.SPHERE, new SphereGeometry(0.2, 4, 3));
 
-export function populateGeometries() {
-  GEOMETRIES.set(GeometryIdentifier.BOX, new BoxGeometry());
-  GEOMETRIES.set(GeometryIdentifier.PLANE, plane());
-  GEOMETRIES.set(GeometryIdentifier.DISC, ring());
-  GEOMETRIES.set(GeometryIdentifier.SPHERE, new SphereGeometry(0.5, 4, 3));
-  hasGeometries = true;
-}
-
-export function geometry(identifier: GeometryIdentifier) {
-  if (!hasGeometries) throw new Error('Base meshes not initialised yet');
-  return GEOMETRIES.get(identifier)!;
+  return (identifier: GeometryIdentifier) => geometryMap.get(identifier)!;
 }

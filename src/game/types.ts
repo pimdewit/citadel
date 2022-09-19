@@ -1,10 +1,14 @@
 import {IWorld} from 'bitecs';
 import {Mesh, PerspectiveCamera, Scene, WebGLRenderer} from 'three';
+import {Resources} from './_resources';
 import {Keyboard} from './lib/input/keyboard';
 
+/** All entity systems and behaviours. */
 export type RenderPipeline = (...input: any[]) => any;
 
 export interface World extends IWorld {
+  // Resources.
+  resources: Resources;
   // Viewport dimensions.
   viewport: Int16Array;
   // The main scene.

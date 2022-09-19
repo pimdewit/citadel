@@ -1,8 +1,7 @@
-import {addComponent, createWorld as createEcsWorld} from 'bitecs';
+import {createWorld as createEcsWorld} from 'bitecs';
 import {DirectionalLight, Scene, WebGLRenderer} from 'three';
+import {createResources} from '../_resources';
 import {resizeCamera} from '../lib/entity-hooks/resize-camera';
-import {CameraNeedsUpdate} from './components/camera/camera-needs-update';
-import {CameraPerspective} from './components/camera/camera-perspective';
 import {Position} from './components/position';
 import {PositionInterpolationTarget} from './components/position-interpolation-target';
 import {camera} from './entities/camera';
@@ -25,6 +24,7 @@ export function createWorld(renderer: WebGLRenderer) {
   world.keyboard.addKeys(commonKeys);
 
   // Graphics.
+  world.resources = createResources();
   world.renderer = renderer;
   world.scene = new Scene();
   world.meshes = new Map();
@@ -70,8 +70,8 @@ export function createWorld(renderer: WebGLRenderer) {
     PositionInterpolationTarget.alpha[e] = 0.01;
     PositionInterpolationTarget.x[e] = Math.random() * 16 - 8;
     PositionInterpolationTarget.z[e] = Math.random() * 16 - 8;
-    Position.x[e] = xPositions[i];
-    Position.z[e] = zPositions[i];
+    Position.x[e] = xPositions[i] * 100;
+    Position.z[e] = zPositions[i] * 100;
   }
 
   return world;

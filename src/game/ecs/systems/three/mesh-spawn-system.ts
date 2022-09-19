@@ -6,8 +6,6 @@ import {
   hasComponent,
 } from 'bitecs';
 import {Mesh as ThreeMesh} from 'three';
-import {geometry} from '../../../_resources/geometry';
-import {program} from '../../../_resources/programs';
 import {World} from '../../../types';
 import {Angle} from '../../components/angle';
 import {Mesh} from '../../components/mesh';
@@ -25,8 +23,8 @@ export function meshSpawnSystem() {
 
     for (let i = 0; i < entitiesEntered.length; ++i) {
       const entity = entitiesEntered[i];
-      const bufferInfo = geometry(Mesh.geometry[entity]);
-      const programInfo = program(Mesh.program[entity]);
+      const bufferInfo = world.resources.geometries(Mesh.geometry[entity]);
+      const programInfo = world.resources.programs(Mesh.program[entity]);
       const mesh = new ThreeMesh(bufferInfo, programInfo);
 
       if (hasComponent(world, Position, entity)) {
