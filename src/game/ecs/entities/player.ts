@@ -1,20 +1,39 @@
 import {addComponent, addEntity, IWorld} from 'bitecs';
-import {GeometryIdentifier} from '../../_resources/geometry';
-import {ProgramIdentifier} from '../../_resources/programs';
-import {Mesh} from '../components/mesh';
+import {Attack} from '../components/attack';
+import {Group} from '../components/group';
+import {Position} from '../components/position';
+import {PositionInterpolationTarget} from '../components/position-interpolation-target';
+import {ControlsMovement} from '../components/tag/controls-movement';
+import {InputKeyboard} from '../components/tag/input-keyboard';
 import {Object3d} from '../components/tag/object-3d';
-import {Static} from '../components/tag/static';
+import {Velocity} from '../components/velocity';
+import {Vision} from '../components/vision';
 
 export function player(world: IWorld) {
   const entity = addEntity(world);
 
+  addComponent(world, Group, entity);
+
   addComponent(world, Object3d, entity);
 
-  addComponent(world, Mesh, entity);
-  Mesh.geometry[entity] = GeometryIdentifier.BOX;
-  Mesh.program[entity] = ProgramIdentifier.PHONG;
+  addComponent(world, Position, entity);
+  Position.x[entity] = 0;
 
-  addComponent(world, Static, entity);
+  addComponent(world, PositionInterpolationTarget, entity);
+  PositionInterpolationTarget.y[entity] = 0.5;
+  PositionInterpolationTarget.alpha[entity] = 0.1;
+
+  addComponent(world, Velocity, entity);
+  Velocity.max[entity] = 0.15;
+
+  addComponent(world, ControlsMovement, entity);
+  addComponent(world, InputKeyboard, entity);
+
+  addComponent(world, Attack, entity);
+  Attack.damage[entity] = 0.5;
+
+  addComponent(world, Vision, entity);
+  Vision.radius[entity] = 5;
 
   return entity;
 }

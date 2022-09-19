@@ -12,9 +12,10 @@ import {PositionInterpolationTarget} from './components/position-interpolation-t
 import {camera} from './entities/camera';
 import {enemy} from './entities/enemy';
 import {ground} from './entities/ground';
-import {groupPlayer} from './entities/group-player';
 import {player} from './entities/player';
+import {playerVisuals} from './entities/player-visuals';
 import {tower} from './entities/tower';
+import {towerVisuals} from './entities/tower-visuals';
 
 export function createWorld(renderer: WebGLRenderer) {
   const world: World = createEcsWorld(
@@ -54,10 +55,10 @@ export function createWorld(renderer: WebGLRenderer) {
 
   const c = camera(world);
 
-  const playerContainer = groupPlayer(world);
+  const playerContainer = player(world);
   Camera.parent[c] = playerContainer;
 
-  const p = player(world);
+  const p = playerVisuals(world);
   Group.parent[p] = playerContainer;
   ground(world);
 
@@ -69,12 +70,14 @@ export function createWorld(renderer: WebGLRenderer) {
     PositionInterpolationTarget.alpha[e] = 0.01;
   }
 
-  const towerPositionX = window.crypto.getRandomValues(new Int8Array(2));
-  const towerPositionY = window.crypto.getRandomValues(new Int8Array(2));
+  const towerPositionX = new Array(2).fill(Math.random());
   for (let i = 0; i < towerPositionX.length; i++) {
-    const e = tower(world);
-    Position.x[e] = towerPositionX[i] / 20;
-    Position.z[e] = towerPositionY[i] / 20;
+    const container = tower(world);
+    Position.x[container] = Math.random() * 30 - 15;
+    Position.z[container] = Math.random() * 30 - 15;
+
+    const visuals = towerVisuals(world);
+    Group.parent[visuals] = container;
   }
 
   const xPositions = window.crypto.getRandomValues(new Int8Array(128));
