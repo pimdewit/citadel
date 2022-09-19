@@ -1,12 +1,30 @@
-import {defineQuery, defineSystem, enterQuery, exitQuery} from 'bitecs';
+import {
+  defineQuery,
+  defineSystem,
+  enterQuery,
+  exitQuery,
+  hasComponent,
+} from 'bitecs';
 import {Object3D} from 'three';
+import {Mesh as ThreeMesh} from 'three/src/objects/Mesh';
 import {applyObject3dTransforms} from '../../../lib/entity-hooks/apply-object3d-transforms';
 import {sceneGraphParent} from '../../../lib/entity-hooks/scene-graph-parent';
 import {World} from '../../../types';
-import {Group} from '../../components/group';
+import {Mesh} from '../../components/mesh';
+import {Object3d} from '../../components/tag/object-3d';
+
+function createObject(world: World, entity: number) {
+  if (hasComponent(world, Mesh, entity)) {
+    const bufferInfo = world.resources.geometries(Mesh.geometry[entity]);
+    const programInfo = world.resources.programs(Mesh.program[entity]);
+    return new ThreeMesh(bufferInfo, programInfo);
+  }
+
+  return new Object3D();
+}
 
 export function object3dSystem() {
-  const entityQuery = defineQuery([Group]);
+  const entityQuery = defineQuery([Object3d]);
   const entityQueryEnter = enterQuery(entityQuery);
   const entityQueryExit = exitQuery(entityQuery);
 
@@ -15,7 +33,8 @@ export function object3dSystem() {
 
     for (let i = 0; i < entitiesEntered.length; ++i) {
       const entity = entitiesEntered[i];
-      const object3d = new Object3D();
+
+      const object3d = createObject(world, entity);
       applyObject3dTransforms(world, object3d, entity);
 
       world.sceneGraphNodes.set(entity, object3d);

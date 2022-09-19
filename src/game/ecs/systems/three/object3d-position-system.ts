@@ -1,7 +1,5 @@
 import {defineQuery, defineSystem, Not} from 'bitecs';
 import {World} from '../../../types';
-import {Mesh} from '../../components/mesh';
-import {Group} from '../../components/group';
 import {Position} from '../../components/position';
 import {Object3d} from '../../components/tag/object-3d';
 import {Static} from '../../components/tag/static';
