@@ -4,6 +4,7 @@ import {damageSystem} from './systems/damage-system';
 import {movementThroughKeyboardSystem} from './systems/movement-through-keyboard-input';
 import {positionInterpolationSystem} from './systems/position-interpolation-system';
 import {positionSystem} from './systems/position-system';
+import {cameraControlsSystem} from './systems/three/camera-controls-system';
 import {cameraPositionSystem} from './systems/three/camera-position-system';
 import {cameraProjectionSystem} from './systems/three/camera-projection-system';
 import {cameraSpawnSystem} from './systems/three/camera-spawn-system';
@@ -34,7 +35,7 @@ export function renderPipeline() {
 
     /** GRAPHICS ----------------------------------------------------------- */
 
-    // Object generation.
+    // Scene graph management.
     cameraSpawnSystem(),
     meshSpawnSystem(),
     visionMeshSystem(),
@@ -42,6 +43,7 @@ export function renderPipeline() {
     // Cameras.
     cameraProjectionSystem(),
     cameraPositionSystem(),
+    cameraControlsSystem(),
 
     // Mesh.
     object3dAngleSystem(),

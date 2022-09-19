@@ -1,8 +1,9 @@
-import {defineQuery, defineSystem} from 'bitecs';
+import {defineQuery, defineSystem, Not} from 'bitecs';
 import {Vector3} from 'three';
 import {World} from '../../../types';
 import {Camera} from '../../components/camera/camera';
 import {CameraActive} from '../../components/camera/camera-active';
+import {CameraOrbitControls} from '../../components/camera/camera-orbit-controls';
 import {CameraPerspective} from '../../components/camera/camera-perspective';
 import {CameraTarget} from '../../components/camera/camera-target';
 import {Position} from '../../components/position';
@@ -12,6 +13,7 @@ export function cameraPositionSystem() {
     Camera,
     CameraActive,
     CameraPerspective,
+    Not(CameraOrbitControls),
     Position,
   ]);
 
