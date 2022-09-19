@@ -6,6 +6,7 @@ import {World} from '../../types';
 import {Mesh} from '../components/mesh';
 import {Position} from '../components/position';
 import {Scale} from '../components/scale';
+import {Static} from '../components/tag/static';
 
 export function visionRadius(world: World) {
   const entity = addEntity(world);
@@ -15,6 +16,7 @@ export function visionRadius(world: World) {
 
   addComponent(world, Position, entity);
   addComponent(world, Scale, entity);
+  addComponent(world, Static, entity);
   setVector3(Scale, entity, 1, 1, 1);
 
   return entity;

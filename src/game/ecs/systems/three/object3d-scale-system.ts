@@ -1,10 +1,12 @@
-import {defineQuery, defineSystem} from 'bitecs';
+import {defineQuery, defineSystem, Not} from 'bitecs';
 import {World} from '../../../types';
 import {Mesh} from '../../components/mesh';
+import {Group} from '../../components/group';
 import {Scale} from '../../components/scale';
+import {Static} from '../../components/tag/static';
 
 export function object3dScaleSystem() {
-  const entityQuery = defineQuery([Mesh, Scale]);
+  const entityQuery = defineQuery([Mesh, Scale, Not(Static)]);
 
   return defineSystem((world: World) => {
     const entities = entityQuery(world);

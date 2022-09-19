@@ -1,10 +1,11 @@
-import {defineQuery, defineSystem} from 'bitecs';
+import {defineQuery, defineSystem, Not} from 'bitecs';
 import {World} from '../../../types';
 import {Angle} from '../../components/angle';
-import {Mesh} from '../../components/mesh';
+import {Group} from '../../components/group';
+import {Static} from '../../components/tag/static';
 
 export function object3dAngleSystem() {
-  const entityQuery = defineQuery([Mesh, Angle]);
+  const entityQuery = defineQuery([Group, Angle, Not(Static)]);
 
   return defineSystem((world: World) => {
     const entities = entityQuery(world);

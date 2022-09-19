@@ -6,6 +6,7 @@ import {Angle} from '../components/angle';
 import {AngularVelocity} from '../components/angular-velocity';
 import {Health} from '../components/health';
 import {Mesh} from '../components/mesh';
+import {Group} from '../components/group';
 import {Position} from '../components/position';
 import {PositionInterpolationTarget} from '../components/position-interpolation-target';
 import {Scale} from '../components/scale';

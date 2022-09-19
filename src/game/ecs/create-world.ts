@@ -1,12 +1,16 @@
-import {createWorld as createEcsWorld} from 'bitecs';
-import {DirectionalLight, Scene, WebGLRenderer} from 'three';
+import {addComponent, addEntity, createWorld as createEcsWorld} from 'bitecs';
+import {AxesHelper, DirectionalLight, Scene, WebGLRenderer} from 'three';
 import {createResources} from '../_resources';
 import {resizeCamera} from '../lib/entity-hooks/resize-camera';
+import {Camera} from './components/camera/camera';
+import {Mesh} from './components/mesh';
+import {Group} from './components/group';
 import {Position} from './components/position';
 import {PositionInterpolationTarget} from './components/position-interpolation-target';
 import {camera} from './entities/camera';
 import {enemy} from './entities/enemy';
 import {ground} from './entities/ground';
+import {groupPlayer} from './entities/group-player';
 import {player} from './entities/player';
 import {tower} from './entities/tower';
 import {Keyboard} from '../lib/input/keyboard';
@@ -14,37 +18,47 @@ import {commonKeys} from '../lib/input/keyboard/common-keys';
 import {World} from '../types';
 
 export function createWorld(renderer: WebGLRenderer) {
-  const world: World = createEcsWorld();
+  const world: World = createEcsWorld(
+    {
+      // Global data.
+      viewport: new Int16Array(2),
 
-  // Global data.
-  world.viewport = new Int16Array(2);
+      // Input.
+      keyboard: new Keyboard(),
 
-  // Input.
-  world.keyboard = new Keyboard();
+      // Graphics.
+      resources: createResources(),
+      renderer,
+      scene: new Scene(),
+      meshes: new Map(),
+      cameras: new Map(),
+      groups: new Map(),
+
+      // Events.
+      resize: (width: number, height: number, dpr: number) => {
+        world.renderer.setSize(width, height);
+        world.renderer.setPixelRatio(dpr);
+        world.viewport[0] = Math.round(width);
+        world.viewport[1] = Math.round(height);
+        resizeCamera(world, width / height, true);
+      },
+    },
+    1024
+  );
   world.keyboard.addKeys(commonKeys);
 
-  // Graphics.
-  world.resources = createResources();
-  world.renderer = renderer;
-  world.scene = new Scene();
-  world.meshes = new Map();
-  world.cameras = new Map();
+  const light = new DirectionalLight();
+  light.position.set(-10, 100, 30);
+  world.scene.add(light);
+  world.scene.add(new AxesHelper(32));
 
-  // Events.
-  world.resize = (width: number, height: number, dpr: number) => {
-    world.renderer.setSize(width, height);
-    world.renderer.setPixelRatio(dpr);
-    world.viewport[0] = Math.round(width);
-    world.viewport[1] = Math.round(height);
-    resizeCamera(world, width / height, true);
-  };
+  const c = camera(world);
 
-  const a = new DirectionalLight();
-  a.position.set(-10, 100, 30);
-  world.scene.add(a);
+  const playerContainer = groupPlayer(world);
+  Camera.parent[c] = playerContainer;
 
-  camera(world);
-  player(world);
+  const p = player(world);
+  Mesh.parent[p] = playerContainer;
   ground(world);
 
   const positions = [2, 4, 6, 8, 10];

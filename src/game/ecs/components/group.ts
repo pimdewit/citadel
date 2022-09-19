@@ -1,5 +1,5 @@
 import {defineComponent, Types} from 'bitecs';
 
-export const Camera = defineComponent({
+export const Group = defineComponent({
   parent: Types.eid,
 });
