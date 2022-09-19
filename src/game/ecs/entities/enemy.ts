@@ -9,19 +9,25 @@ import {Mesh} from '../components/mesh';
 import {Position} from '../components/position';
 import {PositionInterpolationTarget} from '../components/position-interpolation-target';
 import {Scale} from '../components/scale';
+import {Object3d} from '../components/tag/object-3d';
 import {Perceivable} from '../components/tag/perceivable';
 import {Velocity} from '../components/velocity';
 
 export function enemy(world: IWorld) {
   const entity = addEntity(world);
+
+  addComponent(world, Object3d, entity);
+
   addComponent(world, Mesh, entity);
   Mesh.geometry[entity] = GeometryIdentifier.SPHERE;
   Mesh.program[entity] = ProgramIdentifier.UNLIT;
 
   addComponent(world, Position, entity);
+
   addComponent(world, PositionInterpolationTarget, entity);
   PositionInterpolationTarget.y[entity] = 0.5;
   PositionInterpolationTarget.alpha[entity] = 0.01;
+
   addComponent(world, Velocity, entity);
   Velocity.max[entity] = 0.15;
 
@@ -29,6 +35,7 @@ export function enemy(world: IWorld) {
   setVector3(Scale, entity, 1, 1, 1);
 
   addComponent(world, Angle, entity);
+
   addComponent(world, AngularVelocity, entity);
   AngularVelocity.y[entity] = 0.003;
 

@@ -1,6 +1,5 @@
 import {defineQuery, defineSystem, enterQuery, exitQuery} from 'bitecs';
 import {PerspectiveCamera} from 'three';
-import {resizeCamera} from '../../../lib/entity-hooks/resize-camera';
 import {World} from '../../../types';
 import {Camera} from '../../components/camera/camera';
 import {CameraActive} from '../../components/camera/camera-active';

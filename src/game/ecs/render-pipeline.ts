@@ -8,7 +8,8 @@ import {cameraControlsSystem} from './systems/three/camera-controls-system';
 import {cameraPositionSystem} from './systems/three/camera-position-system';
 import {cameraProjectionSystem} from './systems/three/camera-projection-system';
 import {cameraSpawnSystem} from './systems/three/camera-spawn-system';
-import {meshSpawnSystem} from './systems/three/mesh-spawn-system';
+import {meshSystem} from './systems/three/mesh-system';
+import {object3dSystem} from './systems/three/object3d-system';
 import {object3dAngleSystem} from './systems/three/object3d-angle-system';
 import {object3dPositionSystem} from './systems/three/object3d-position-system';
 import {object3dScaleSystem} from './systems/three/object3d-scale-system';
@@ -37,7 +38,8 @@ export function renderPipeline() {
 
     // Scene graph management.
     cameraSpawnSystem(),
-    meshSpawnSystem(),
+    object3dSystem(),
+    meshSystem(),
     visionMeshSystem(),
 
     // Cameras.
