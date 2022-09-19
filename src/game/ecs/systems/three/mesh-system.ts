@@ -1,9 +1,9 @@
 import {defineQuery, defineSystem, enterQuery, exitQuery} from 'bitecs';
 import {Mesh as ThreeMesh} from 'three';
 import {applyObject3dTransforms} from '../../../lib/entity-hooks/apply-object3d-transforms';
+import {sceneGraphParent} from '../../../lib/entity-hooks/scene-graph-parent';
 import {World} from '../../../types';
 import {Mesh} from '../../components/mesh';
-import {Group} from '../../components/group';
 
 export function meshSystem() {
   const entityQuery = defineQuery([Mesh]);
@@ -22,20 +22,20 @@ export function meshSystem() {
 
       applyObject3dTransforms(world, mesh, entity);
 
-      world.meshes.set(entity, mesh);
+      world.sceneGraphNodes.set(entity, mesh);
 
-      const parent = world.groups.get(Mesh.parent[entity]) || world.scene;
+      const parent = sceneGraphParent(world, entity);
       parent.add(mesh);
     }
 
     const entitiesExited = entityQueryExit(world);
     for (let i = 0; i < entitiesExited.length; ++i) {
       const entity = entitiesExited[i];
-      const mesh = world.meshes.get(entity);
+      const mesh = world.sceneGraphNodes.get(entity);
       if (mesh) {
-        const parent = world.groups.get(Group.parent[entity]) || world.scene;
+        const parent = sceneGraphParent(world, entity);
         parent.remove(mesh);
-        world.meshes.delete(entity);
+        world.sceneGraphNodes.delete(entity);
       }
     }
 

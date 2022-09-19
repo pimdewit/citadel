@@ -7,7 +7,6 @@ import {
 } from 'bitecs';
 import {setVector3} from '../../lib/math/vector3/set-vector3';
 import {World} from '../../types';
-import {Mesh} from '../components/mesh';
 import {Group} from '../components/group';
 import {Scale} from '../components/scale';
 import {Vision} from '../components/vision';
@@ -27,7 +26,7 @@ export function visionMeshSystem() {
       const radiusEntity = visionRadius(world);
       const distance = Vision.radius[entity];
       setVector3(Scale, radiusEntity, distance, distance, distance);
-      Mesh.parent[radiusEntity] = entity;
+      Group.parent[radiusEntity] = entity;
       Vision.meshEntityId[entity] = radiusEntity;
     }
 

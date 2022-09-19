@@ -5,10 +5,14 @@ import {setVector3} from '../../lib/math/vector3/set-vector3';
 import {Attack} from '../components/attack';
 import {Mesh} from '../components/mesh';
 import {Position} from '../components/position';
+import {Object3d} from '../components/tag/object-3d';
 import {Vision} from '../components/vision';
 
 export function tower(world: IWorld) {
   const entity = addEntity(world);
+
+  addComponent(world, Object3d, entity);
+
   addComponent(world, Mesh, entity);
   Mesh.geometry[entity] = GeometryIdentifier.BOX;
   Mesh.program[entity] = ProgramIdentifier.UNLIT;

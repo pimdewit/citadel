@@ -1,9 +1,11 @@
-import {addComponent, addEntity, createWorld as createEcsWorld} from 'bitecs';
+import {createWorld as createEcsWorld} from 'bitecs';
 import {AxesHelper, DirectionalLight, Scene, WebGLRenderer} from 'three';
 import {createResources} from '../_resources';
 import {resizeCamera} from '../lib/entity-hooks/resize-camera';
+import {Keyboard} from '../lib/input/keyboard';
+import {commonKeys} from '../lib/input/keyboard/common-keys';
+import {World} from '../types';
 import {Camera} from './components/camera/camera';
-import {Mesh} from './components/mesh';
 import {Group} from './components/group';
 import {Position} from './components/position';
 import {PositionInterpolationTarget} from './components/position-interpolation-target';
@@ -13,9 +15,6 @@ import {ground} from './entities/ground';
 import {groupPlayer} from './entities/group-player';
 import {player} from './entities/player';
 import {tower} from './entities/tower';
-import {Keyboard} from '../lib/input/keyboard';
-import {commonKeys} from '../lib/input/keyboard/common-keys';
-import {World} from '../types';
 
 export function createWorld(renderer: WebGLRenderer) {
   const world: World = createEcsWorld(
@@ -33,6 +32,7 @@ export function createWorld(renderer: WebGLRenderer) {
       meshes: new Map(),
       cameras: new Map(),
       groups: new Map(),
+      sceneGraphNodes: new Map(),
 
       // Events.
       resize: (width: number, height: number, dpr: number) => {
@@ -58,7 +58,7 @@ export function createWorld(renderer: WebGLRenderer) {
   Camera.parent[c] = playerContainer;
 
   const p = player(world);
-  Mesh.parent[p] = playerContainer;
+  Group.parent[p] = playerContainer;
   ground(world);
 
   const positions = [2, 4, 6, 8, 10];

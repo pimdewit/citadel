@@ -24,7 +24,7 @@ export function cameraControlsSystem() {
       const controls = orbitControls(camera, world.renderer.domElement, entity);
       camera.userData.controls = controls;
 
-      const parent = world.groups.get(Camera.parent[entity]);
+      const parent = world.sceneGraphNodes.get(Camera.parent[entity]);
       if (parent) controls.target = parent.position;
     }
 

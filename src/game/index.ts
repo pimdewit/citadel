@@ -15,6 +15,8 @@ export class Game {
 
     // Render once to transfer to gpu.
     this.render();
+
+    console.log(this.world.sceneGraphNodes);
   }
 
   readonly render = () => {

@@ -7,6 +7,7 @@ import {Position} from '../components/position';
 import {PositionInterpolationTarget} from '../components/position-interpolation-target';
 import {ControlsMovement} from '../components/tag/controls-movement';
 import {InputKeyboard} from '../components/tag/input-keyboard';
+import {Object3d} from '../components/tag/object-3d';
 import {Velocity} from '../components/velocity';
 import {Vision} from '../components/vision';
 
@@ -14,6 +15,8 @@ export function groupPlayer(world: IWorld) {
   const entity = addEntity(world);
 
   addComponent(world, Group, entity);
+
+  addComponent(world, Object3d, entity);
 
   addComponent(world, Position, entity);
   Position.x[entity] = 0;
