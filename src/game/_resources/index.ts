@@ -10,13 +10,9 @@ export interface Resources {
 }
 
 export function createResources() {
-  const geometries = geometries();
-  const textures = textures();
-  const programs = programs();
-
   return {
-    geometries,
-    textures,
-    programs,
+    geometries: geometries(),
+    textures: textures(),
+    programs: programs(),
   };
 }
