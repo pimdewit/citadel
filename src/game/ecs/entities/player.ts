@@ -18,10 +18,10 @@ export function player(world: IWorld) {
 
   addComponent(world, Position, entity);
   Position.x[entity] = 0;
+  Position.y[entity] = 0;
 
   addComponent(world, PositionInterpolationTarget, entity);
-  PositionInterpolationTarget.y[entity] = 0.5;
-  PositionInterpolationTarget.alpha[entity] = 0.1;
+  PositionInterpolationTarget.alpha[entity] = 0.15;
 
   addComponent(world, Velocity, entity);
   Velocity.max[entity] = 0.15;
@@ -30,7 +30,7 @@ export function player(world: IWorld) {
   addComponent(world, InputKeyboard, entity);
 
   addComponent(world, Attack, entity);
-  Attack.damage[entity] = 0.5;
+  Attack.damage[entity] = 20;
 
   addComponent(world, Vision, entity);
   Vision.radius[entity] = 5;

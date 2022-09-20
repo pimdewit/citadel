@@ -13,6 +13,7 @@ import {object3dAngleSystem} from './systems/three/object3d-angle-system';
 import {object3dPositionSystem} from './systems/three/object3d-position-system';
 import {object3dScaleSystem} from './systems/three/object3d-scale-system';
 import {renderSystem} from './systems/three/render-system';
+import {visionDetectedSystem} from './systems/vision-detected-system';
 import {visionMeshSystem} from './systems/vision-mesh-system';
 import {visionSystem} from './systems/vision-system';
 
@@ -39,6 +40,8 @@ export function renderPipeline() {
     cameraSpawnSystem(),
     object3dSystem(),
     visionMeshSystem(),
+    // drawLineSystem(),
+    visionDetectedSystem(),
 
     // Cameras.
     cameraProjectionSystem(),

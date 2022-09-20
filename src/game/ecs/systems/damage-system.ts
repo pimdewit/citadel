@@ -4,11 +4,12 @@ import {World} from '../../types';
 import {Attack} from '../components/attack';
 import {Health} from '../components/health';
 import {Scale} from '../components/scale';
+import {Perceivable} from '../components/tag/perceivable';
 import {Vision} from '../components/vision';
 
-function damageSystem() {
+export function damageSystem() {
   const entityQuery = defineQuery([Attack, Vision]);
-  const enemyQuery = defineQuery([Health]);
+  const enemyQuery = defineQuery([Perceivable, Health]);
 
   return defineSystem((world: World) => {
     const entities = entityQuery(world);
@@ -23,7 +24,6 @@ function damageSystem() {
       for (let j = 0; j < enemies.length; j++) {
         const enemy = enemies[j];
 
-        // The entity does not have a target; continue.
         if (Vision.target[entity] !== enemy) continue;
 
         // No health; continue.
@@ -46,5 +46,3 @@ function damageSystem() {
     return world;
   });
 }
-
-export {damageSystem};

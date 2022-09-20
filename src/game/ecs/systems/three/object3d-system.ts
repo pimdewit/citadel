@@ -9,13 +9,19 @@ import {Object3D} from 'three';
 import {Mesh as ThreeMesh} from 'three/src/objects/Mesh';
 import {applyObject3dTransforms} from '../../../lib/entity-hooks/apply-object3d-transforms';
 import {sceneGraphParent} from '../../../lib/entity-hooks/scene-graph-parent';
-import {World} from '../../../types';
+import {TOGGLE_BINARY, World} from '../../../types';
 import {Mesh} from '../../components/mesh';
 import {Object3d} from '../../components/tag/object-3d';
 
 function createObject(world: World, entity: number) {
   if (hasComponent(world, Mesh, entity)) {
-    const bufferInfo = world.resources.geometries(Mesh.geometry[entity]);
+    let bufferInfo = world.resources.geometries(Mesh.geometry[entity]);
+
+    // Whether a new instance of the geometry should be created.
+    if (Mesh.newInstance[entity] === TOGGLE_BINARY.TRUE) {
+      bufferInfo = bufferInfo.clone();
+    }
+
     const programInfo = world.resources.programs(Mesh.program[entity]);
     return new ThreeMesh(bufferInfo, programInfo);
   }
