@@ -22,7 +22,7 @@ function createObject(world: World, entity: number) {
       bufferInfo = bufferInfo.clone();
     }
 
-    const programInfo = world.resources.programs(Mesh.program[entity]);
+    const programInfo = world.resources.programs(Mesh.program[entity]).clone();
     return new ThreeMesh(bufferInfo, programInfo);
   }
 

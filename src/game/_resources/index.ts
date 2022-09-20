@@ -1,18 +1,21 @@
-import {BufferGeometry, Material, Texture} from 'three';
+import {BufferGeometry, Color, Material, Texture} from 'three';
+import {ColorIdentifier, colors} from './colors';
 import {GeometryIdentifier, geometries} from './geometry';
 import {textures, TextureIdentifier} from './textures';
 import {programs, ProgramIdentifier} from './programs';
 
 export interface Resources {
-  geometries: (identifier: GeometryIdentifier) => BufferGeometry;
+  colors: (identifier: ColorIdentifier) => Color;
   textures: (identifier: TextureIdentifier) => Texture;
+  geometries: (identifier: GeometryIdentifier) => BufferGeometry;
   programs: (identifier: ProgramIdentifier) => Material;
 }
 
 export function createResources() {
   return {
-    geometries: geometries(),
+    colors: colors(),
     textures: textures(),
+    geometries: geometries(),
     programs: programs(),
   };
 }

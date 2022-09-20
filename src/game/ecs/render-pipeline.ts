@@ -1,6 +1,7 @@
 import {pipe} from 'bitecs';
 import {angleSystem} from './systems/angle-system';
 import {damageSystem} from './systems/damage-system';
+import {enemyRevealedSystem} from './systems/enemy-revealed-system';
 import {movementThroughKeyboardSystem} from './systems/movement-through-keyboard-input';
 import {positionInterpolationSystem} from './systems/position-interpolation-system';
 import {positionSystem} from './systems/position-system';
@@ -42,6 +43,8 @@ export function renderPipeline() {
     visionMeshSystem(),
     // drawLineSystem(),
     visionDetectedSystem(),
+
+    enemyRevealedSystem(),
 
     // Cameras.
     cameraProjectionSystem(),

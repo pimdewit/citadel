@@ -1,8 +1,17 @@
-import {defineQuery, defineSystem} from 'bitecs';
+import {
+  addComponent,
+  defineQuery,
+  defineSystem,
+  hasComponent,
+  removeComponent,
+} from 'bitecs';
+import {Mesh} from 'three';
+import {ColorIdentifier} from '../../_resources/colors';
 import {distanceToComponent} from '../../lib/math/vector3/distance-to';
 import {World} from '../../types';
 import {Position} from '../components/position';
 import {Perceivable} from '../components/tag/perceivable';
+import {Revealed} from '../components/tag/revealed';
 import {Vision} from '../components/vision';
 
 export function visionSystem() {
@@ -29,7 +38,18 @@ export function visionSystem() {
         const distance = distanceToComponent(Position, entity, Position, enemy);
         const isWithinDistance = distance >= 0 && distance < radius;
 
-        if (!isWithinDistance) continue;
+        isWithinDistance
+          ? addComponent(world, Revealed, enemy)
+          : removeComponent(world, Revealed, enemy);
+
+        if (!isWithinDistance) {
+          // if (hasComponent(world, Revealed, enemy)) {
+          //   removeComponent(world, Revealed, enemy);
+          // }
+          continue;
+        }
+
+        // addComponent(world, Revealed, enemy);
 
         if (distance < closestDistance) {
           closestDistance = distance;
