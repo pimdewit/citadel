@@ -3,6 +3,11 @@ import {Object3D, PerspectiveCamera, Scene, WebGLRenderer} from 'three';
 import {Resources} from './_resources';
 import {Keyboard} from './lib/input/keyboard';
 
+export enum TOGGLE_BINARY {
+  FALSE,
+  TRUE,
+}
+
 /** All entity systems and behaviours. */
 export type RenderPipeline = (...input: any[]) => any;
 
@@ -13,9 +18,8 @@ export interface World extends IWorld {
   viewport: Int16Array;
   // The main scene.
   scene: Scene;
+  towerLines: Map<number, Object3D>;
   // Collection of scene graph nodes.
-  meshes: Map<number, Object3D>;
-  groups: Map<number, Object3D>;
   sceneGraphNodes: Map<number, Object3D>;
   // Collection of cameras.
   cameras: Map<number, PerspectiveCamera>;

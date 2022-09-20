@@ -31,6 +31,7 @@ export function createWorld(renderer: WebGLRenderer) {
       renderer,
       scene: new Scene(),
       meshes: new Map(),
+      towerLines: new Map(),
       cameras: new Map(),
       groups: new Map(),
       sceneGraphNodes: new Map(),
@@ -51,7 +52,7 @@ export function createWorld(renderer: WebGLRenderer) {
   const light = new DirectionalLight();
   light.position.set(-10, 100, 30);
   world.scene.add(light);
-  world.scene.add(new AxesHelper(32));
+  // world.scene.add(new AxesHelper(32));
 
   const c = camera(world);
 
@@ -61,14 +62,6 @@ export function createWorld(renderer: WebGLRenderer) {
   const p = playerVisuals(world);
   Group.parent[p] = playerContainer;
   ground(world);
-
-  const positions = [2, 4, 6, 8, 10];
-
-  for (let i = 0; i < positions.length; i++) {
-    const e = enemy(world);
-    Position.x[e] = positions[i];
-    PositionInterpolationTarget.alpha[e] = 0.01;
-  }
 
   const towerPositionX = new Array(2).fill(Math.random());
   for (let i = 0; i < towerPositionX.length; i++) {
@@ -80,8 +73,8 @@ export function createWorld(renderer: WebGLRenderer) {
     Group.parent[visuals] = container;
   }
 
-  const xPositions = window.crypto.getRandomValues(new Int8Array(128));
-  const zPositions = window.crypto.getRandomValues(new Int8Array(128));
+  const xPositions = window.crypto.getRandomValues(new Int8Array(256));
+  const zPositions = window.crypto.getRandomValues(new Int8Array(256));
   for (let i = 0; i < xPositions.length; i++) {
     const e = enemy(world);
     PositionInterpolationTarget.alpha[e] = 0.01;

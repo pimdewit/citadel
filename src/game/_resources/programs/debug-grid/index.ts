@@ -6,7 +6,7 @@ export function debugGrid() {
   return new RawShaderMaterial({
     uniforms: {
       u_color: {
-        value: new Color(1, 1, 1),
+        value: new Color(0.15, 0.17, 0.2),
       },
     },
     vertexShader: vertexShaderSource,

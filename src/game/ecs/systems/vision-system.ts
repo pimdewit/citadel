@@ -28,6 +28,7 @@ export function visionSystem() {
 
         const distance = distanceToComponent(Position, entity, Position, enemy);
         const isWithinDistance = distance >= 0 && distance < radius;
+
         if (!isWithinDistance) continue;
 
         if (distance < closestDistance) {
