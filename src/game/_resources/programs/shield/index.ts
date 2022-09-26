@@ -32,7 +32,6 @@ export function shield(texture: Texture) {
       },
     },
     depthWrite: false,
-    // alphaTest: 0.1,
     blending: AdditiveBlending,
     vertexShader: vertexShaderSource,
     fragmentShader: fragmentShaderSource,

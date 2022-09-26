@@ -21,9 +21,7 @@ void main() {
   float noise = redClamped * u_shield_noise_force;
 
   float alpha = -0.5 + (v_texCoord.y / 1.2) + noise;
-//  alpha *= v_texCoord.y / 3.2;
-
-//  if (v_texCoord.y > 0.499 && v_texCoord.y < 0.501) alpha = 0.3;
+  //  alpha *= v_texCoord.y / 3.2;
 
   vec3 color = u_shield_color;
   color.b += alpha;
