@@ -14,6 +14,7 @@ import {enemy} from './entities/enemy';
 import {ground} from './entities/ground';
 import {player} from './entities/player';
 import {playerVisuals} from './entities/player-visuals';
+import {skybox} from './entities/skybox';
 import {tower} from './entities/tower';
 import {towerVisuals} from './entities/tower-visuals';
 
@@ -54,6 +55,8 @@ export function createWorld(renderer: WebGLRenderer) {
   world.scene.add(light);
 
   const c = camera(world);
+
+  const backdrop = skybox(world);
 
   const playerContainer = player(world);
   Camera.parent[c] = playerContainer;
