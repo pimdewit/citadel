@@ -7,7 +7,7 @@ export enum GeometryIdentifier {
   EMPTY_BUFFER,
   PLANE,
   BOX,
-  DISC,
+  RING,
   SPHERE,
 }
 
@@ -16,8 +16,8 @@ export function geometries() {
   geometryMap.set(GeometryIdentifier.EMPTY_BUFFER, new BufferGeometry());
   geometryMap.set(GeometryIdentifier.BOX, box());
   geometryMap.set(GeometryIdentifier.PLANE, plane());
-  geometryMap.set(GeometryIdentifier.DISC, ring());
-  geometryMap.set(GeometryIdentifier.SPHERE, new SphereGeometry(0.2, 4, 3));
+  geometryMap.set(GeometryIdentifier.RING, ring());
+  geometryMap.set(GeometryIdentifier.SPHERE, new SphereGeometry(1, 16, 16));
 
   return (identifier: GeometryIdentifier) => geometryMap.get(identifier)!;
 }
