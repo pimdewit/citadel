@@ -1,6 +1,6 @@
 import {Color, RawShaderMaterial} from 'three';
 import fragmentShaderSource from './debug-grid.frag';
-import vertexShaderSource from './debug-grid.vert';
+import vertexShaderSource from '../default-vertex.vert';
 
 export function debugGrid() {
   return new RawShaderMaterial({

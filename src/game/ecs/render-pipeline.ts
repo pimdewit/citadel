@@ -41,7 +41,6 @@ export function renderPipeline() {
     cameraSpawnSystem(),
     object3dSystem(),
     visionMeshSystem(),
-    // drawLineSystem(),
     visionDetectedSystem(),
 
     enemyRevealedSystem(),
