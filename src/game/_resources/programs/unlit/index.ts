@@ -1,6 +1,6 @@
 import {Color, RawShaderMaterial} from 'three';
 import fragmentShaderSource from './unlit.frag';
-import vertexShaderSource from './unlit.vert';
+import vertexShaderSource from '../default-vertex.vert';
 
 export function unlit() {
   return new RawShaderMaterial({
@@ -9,6 +9,7 @@ export function unlit() {
         value: new Color(1, 0, 0),
       },
     },
+    wireframe: true,
     vertexShader: vertexShaderSource,
     fragmentShader: fragmentShaderSource,
   });
