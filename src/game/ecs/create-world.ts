@@ -21,9 +21,6 @@ import {towerVisuals} from './entities/tower-visuals';
 export function createWorld(renderer: WebGLRenderer) {
   const world: World = createEcsWorld(
     {
-      // Global data.
-      viewport: new Int16Array(2),
-
       // Input.
       keyboard: new Keyboard(),
 
@@ -41,8 +38,6 @@ export function createWorld(renderer: WebGLRenderer) {
       resize: (width: number, height: number, dpr: number) => {
         world.renderer.setSize(width, height);
         world.renderer.setPixelRatio(dpr);
-        world.viewport[0] = Math.round(width);
-        world.viewport[1] = Math.round(height);
         resizeCamera(world, width / height, true);
       },
     },
