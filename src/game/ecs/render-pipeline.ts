@@ -5,6 +5,7 @@ import {enemyRevealedSystem} from './systems/enemy-revealed-system';
 import {movementThroughKeyboardSystem} from './systems/movement-through-keyboard-input';
 import {positionInterpolationSystem} from './systems/position-interpolation-system';
 import {positionSystem} from './systems/position-system';
+import {shaderTimeSystem} from './systems/shader-time-system';
 import {cameraControlsSystem} from './systems/three/camera-controls-system';
 import {cameraPositionSystem} from './systems/three/camera-position-system';
 import {cameraProjectionSystem} from './systems/three/camera-projection-system';
@@ -54,6 +55,7 @@ export function renderPipeline() {
     object3dAngleSystem(),
     object3dPositionSystem(),
     object3dScaleSystem(),
+    shaderTimeSystem(),
 
     // Rendering.
     renderSystem()
