@@ -5,13 +5,23 @@ import {
   exitQuery,
   hasComponent,
 } from 'bitecs';
-import {Object3D} from 'three';
+import {Material, Object3D, ShaderMaterial} from 'three';
 import {Mesh as ThreeMesh} from 'three/src/objects/Mesh';
+import {
+  resourceEventDispatcher,
+  ResourceEventName,
+} from '../../../_resources/events';
 import {applyObject3dTransforms} from '../../../lib/entity-hooks/apply-object3d-transforms';
 import {sceneGraphParent} from '../../../lib/entity-hooks/scene-graph-parent';
 import {TOGGLE_BINARY, World} from '../../../types';
 import {Mesh} from '../../components/mesh';
 import {Object3d} from '../../components/tag/object-3d';
+
+function isTextureMaterial(
+  material: Material | Material[]
+): material is ShaderMaterial {
+  return 'uniforms' in material && material['uniforms']['u_texture'];
+}
 
 function createObject(world: World, entity: number) {
   if (hasComponent(world, Mesh, entity)) {
@@ -23,6 +33,19 @@ function createObject(world: World, entity: number) {
     }
 
     const programInfo = world.resources.programs(Mesh.program[entity]).clone();
+
+    const refreshTexture = (event: any) => {
+      if (isTextureMaterial(programInfo)) {
+        programInfo.uniforms.u_texture.value = world.resources.textures(event);
+      }
+    };
+
+    // @TODO: REMOVE!
+    resourceEventDispatcher.addEventListener(
+      ResourceEventName.DOWNLOADED,
+      refreshTexture
+    );
+
     return new ThreeMesh(bufferInfo, programInfo);
   }
 

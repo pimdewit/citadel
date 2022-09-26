@@ -1,5 +1,5 @@
 import {createWorld as createEcsWorld} from 'bitecs';
-import {AxesHelper, DirectionalLight, Scene, WebGLRenderer} from 'three';
+import {DirectionalLight, Scene, WebGLRenderer} from 'three';
 import {createResources} from '../_resources';
 import {resizeCamera} from '../lib/entity-hooks/resize-camera';
 import {Keyboard} from '../lib/input/keyboard';
@@ -27,13 +27,13 @@ export function createWorld(renderer: WebGLRenderer) {
       keyboard: new Keyboard(),
 
       // Graphics.
-      resources: createResources(),
+      resources: createResources(renderer),
       renderer,
       scene: new Scene(),
-      meshes: new Map(),
+      meshes: new Map(), // TODO: remove.
       towerLines: new Map(),
       cameras: new Map(),
-      groups: new Map(),
+      groups: new Map(), // TODO: check if needed.
       sceneGraphNodes: new Map(),
 
       // Events.
@@ -52,7 +52,6 @@ export function createWorld(renderer: WebGLRenderer) {
   const light = new DirectionalLight();
   light.position.set(-10, 100, 30);
   world.scene.add(light);
-  // world.scene.add(new AxesHelper(32));
 
   const c = camera(world);
 

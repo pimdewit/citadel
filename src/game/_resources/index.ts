@@ -1,8 +1,9 @@
-import {BufferGeometry, Color, Material, Texture} from 'three';
+import {BufferGeometry, Color, Material, Texture, WebGLRenderer} from 'three';
 import {ColorIdentifier, colors} from './colors';
 import {GeometryIdentifier, geometries} from './geometry';
-import {textures, TextureIdentifier} from './textures';
 import {programs, ProgramIdentifier} from './programs';
+import {textures} from './textures';
+import {TextureIdentifier} from './textures/texture-map-data';
 
 export interface Resources {
   colors: (identifier: ColorIdentifier) => Color;
@@ -11,11 +12,13 @@ export interface Resources {
   programs: (identifier: ProgramIdentifier) => Material;
 }
 
-export function createResources() {
+export function createResources(renderer: WebGLRenderer) {
+  const textureMap = textures(renderer);
+
   return {
     colors: colors(),
-    textures: textures(),
+    textures: textureMap,
     geometries: geometries(),
-    programs: programs(),
+    programs: programs(textureMap),
   };
 }
