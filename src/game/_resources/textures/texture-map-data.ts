@@ -1,17 +1,23 @@
 import {RepeatWrapping, Vector2, Wrapping} from 'three';
 
+const layeredPerlin = new URL(
+    `../../../../webgl/textures/layered-perlin.png`,
+    import.meta.url
+).href;
+const noise1 = new URL(
+    `../../../../webgl/textures/noise-64.png`,
+    import.meta.url
+).href;
+const noise1Ktx = new URL(
+    `../../../../webgl/textures/noise-64.ktx2`,
+    import.meta.url
+).href;
+
 export enum TextureIdentifier {
   DEBUG,
   NOISE1,
   LAYERED_NOISE,
-}
 
-const basePath = '../../../../webgl/textures/';
-
-const layeredPerlin = new URL(`${basePath}layered-perlin.png`, import.meta.url)
-  .href;
-const noise1 = new URL(`${basePath}noise-64.png`, import.meta.url).href;
-const noise1Ktx = new URL(`${basePath}noise-64.ktx2`, import.meta.url).href;
 
 interface TextureMapData {
   identifier: TextureIdentifier;
