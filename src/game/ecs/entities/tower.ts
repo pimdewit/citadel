@@ -3,7 +3,7 @@ import {setVector3} from '../../lib/math/vector3/set-vector3';
 import {Attack} from '../components/attack';
 import {Group} from '../components/group';
 import {Position} from '../components/position';
-import {Object3d} from '../components/tag/object-3d';
+import {SceneGraphNode} from '../components/tag/scene-graph-node';
 import {Static} from '../components/tag/static';
 import {Vision} from '../components/vision';
 
@@ -12,7 +12,7 @@ export function tower(world: IWorld) {
 
   addComponent(world, Group, entity);
 
-  addComponent(world, Object3d, entity);
+  addComponent(world, SceneGraphNode, entity);
 
   addComponent(world, Position, entity);
   setVector3(Position, entity, 20, 0, 0.5);

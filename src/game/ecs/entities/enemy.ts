@@ -10,7 +10,7 @@ import {Position} from '../components/position';
 import {PositionInterpolationTarget} from '../components/position-interpolation-target';
 import {Scale} from '../components/scale';
 import {Enemy} from '../components/tag/enemy';
-import {Object3d} from '../components/tag/object-3d';
+import {SceneGraphNode} from '../components/tag/scene-graph-node';
 import {Perceivable} from '../components/tag/perceivable';
 import {Velocity} from '../components/velocity';
 
@@ -19,7 +19,7 @@ export function enemy(world: IWorld) {
 
   addComponent(world, Enemy, entity);
 
-  addComponent(world, Object3d, entity);
+  addComponent(world, SceneGraphNode, entity);
 
   addComponent(world, Mesh, entity);
   Mesh.geometry[entity] = GeometryIdentifier.SPHERE;

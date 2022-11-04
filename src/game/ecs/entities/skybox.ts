@@ -6,14 +6,14 @@ import {World} from '../../types';
 import {Mesh} from '../components/mesh';
 import {Position} from '../components/position';
 import {Scale} from '../components/scale';
-import {Object3d} from '../components/tag/object-3d';
+import {SceneGraphNode} from '../components/tag/scene-graph-node';
 import {Static} from '../components/tag/static';
 
 export function skybox(world: World) {
   const entity = addEntity(world);
   const SCALE = 128;
 
-  addComponent(world, Object3d, entity);
+  addComponent(world, SceneGraphNode, entity);
 
   addComponent(world, Mesh, entity);
   Mesh.geometry[entity] = GeometryIdentifier.SPHERE;

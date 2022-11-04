@@ -27,12 +27,12 @@ export function visionMeshSystem() {
       const distance = Vision.radius[entity];
       setVector3(Scale, radiusEntity, distance, distance, distance);
       Group.parent[radiusEntity] = entity;
-      Vision.meshEntityId[entity] = radiusEntity;
+      Vision.associatedMeshEntity[entity] = radiusEntity;
     }
 
     for (let i = 0; i < entitiesExited.length; ++i) {
       const entity = entitiesExited[i];
-      removeEntity(world, Vision.meshEntityId[entity]);
+      removeEntity(world, Vision.associatedMeshEntity[entity]);
     }
 
     return world;

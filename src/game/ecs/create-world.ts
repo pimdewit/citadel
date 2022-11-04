@@ -28,10 +28,8 @@ export function createWorld(renderer: WebGLRenderer) {
       resources: createResources(renderer),
       renderer,
       scene: new Scene(),
-      meshes: new Map(), // TODO: remove.
       towerLines: new Map(),
       cameras: new Map(),
-      groups: new Map(), // TODO: check if needed.
       sceneGraphNodes: new Map(),
 
       // Events.
@@ -51,7 +49,7 @@ export function createWorld(renderer: WebGLRenderer) {
 
   const c = camera(world);
 
-  const backdrop = skybox(world);
+  skybox(world);
 
   const playerContainer = player(world);
   Camera.parent[c] = playerContainer;

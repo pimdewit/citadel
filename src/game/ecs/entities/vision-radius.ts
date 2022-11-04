@@ -7,7 +7,7 @@ import {Mesh} from '../components/mesh';
 import {Position} from '../components/position';
 import {Scale} from '../components/scale';
 import {MaterialTime} from '../components/tag/material-time';
-import {Object3d} from '../components/tag/object-3d';
+import {SceneGraphNode} from '../components/tag/scene-graph-node';
 import {Static} from '../components/tag/static';
 
 export function visionRadius(world: World) {
@@ -15,7 +15,7 @@ export function visionRadius(world: World) {
 
   addComponent(world, MaterialTime, entity);
   MaterialTime.iterationAmount[entity] = 0.0015 + Math.random() / 100;
-  addComponent(world, Object3d, entity);
+  addComponent(world, SceneGraphNode, entity);
 
   addComponent(world, Mesh, entity);
   Mesh.geometry[entity] = GeometryIdentifier.SPHERE;

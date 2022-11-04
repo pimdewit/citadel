@@ -15,7 +15,7 @@ import {applyObject3dTransforms} from '../../../lib/entity-hooks/apply-object3d-
 import {sceneGraphParent} from '../../../lib/entity-hooks/scene-graph-parent';
 import {TOGGLE_BINARY, World} from '../../../types';
 import {Mesh} from '../../components/mesh';
-import {Object3d} from '../../components/tag/object-3d';
+import {SceneGraphNode} from '../../components/tag/scene-graph-node';
 
 function isTextureMaterial(
   material: Material | Material[]
@@ -53,7 +53,7 @@ function createObject(world: World, entity: number) {
 }
 
 export function object3dSystem() {
-  const entityQuery = defineQuery([Object3d]);
+  const entityQuery = defineQuery([SceneGraphNode]);
   const entityQueryEnter = enterQuery(entityQuery);
   const entityQueryExit = exitQuery(entityQuery);
 

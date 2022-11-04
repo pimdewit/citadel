@@ -14,7 +14,7 @@ const textureLoader = new TextureLoader(loadingManager);
 const ktx2Loader = new KTX2Loader(loadingManager);
 
 export function textures(renderer: WebGLRenderer) {
-  ktx2Loader.setTranscoderPath(ktx2TranscoderPath);
+  ktx2Loader.setTranscoderPath(`${ktx2TranscoderPath}/`);
   ktx2Loader.detectSupport(renderer);
 
   const textureMap = new Map<number, Texture>();

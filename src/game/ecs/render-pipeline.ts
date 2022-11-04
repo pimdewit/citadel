@@ -5,15 +5,13 @@ import {enemyRevealedSystem} from './systems/enemy-revealed-system';
 import {movementThroughKeyboardSystem} from './systems/movement-through-keyboard-input';
 import {positionInterpolationSystem} from './systems/position-interpolation-system';
 import {positionSystem} from './systems/position-system';
+import {sceneGraphNodeTransformSystem} from './systems/scene-graph-node-transform-system';
 import {shaderTimeSystem} from './systems/shader-time-system';
 import {cameraControlsSystem} from './systems/three/camera-controls-system';
 import {cameraPositionSystem} from './systems/three/camera-position-system';
 import {cameraProjectionSystem} from './systems/three/camera-projection-system';
 import {cameraSpawnSystem} from './systems/three/camera-spawn-system';
 import {object3dSystem} from './systems/three/object3d-system';
-import {object3dAngleSystem} from './systems/three/object3d-angle-system';
-import {object3dPositionSystem} from './systems/three/object3d-position-system';
-import {object3dScaleSystem} from './systems/three/object3d-scale-system';
 import {renderSystem} from './systems/three/render-system';
 import {visionDetectedSystem} from './systems/vision-detected-system';
 import {visionMeshSystem} from './systems/vision-mesh-system';
@@ -52,9 +50,7 @@ export function renderPipeline() {
     cameraControlsSystem(),
 
     // Mesh.
-    object3dAngleSystem(),
-    object3dPositionSystem(),
-    object3dScaleSystem(),
+    sceneGraphNodeTransformSystem(),
     shaderTimeSystem(),
 
     // Rendering.
